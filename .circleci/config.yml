@@ -12,8 +12,5 @@ workflows:
             apps/app1/.* app1 true
           config-path: .circleci/workflows.yml
 
-          base-revision: circleci-project-setup
-          mapping: |
-            apps/app2/.* app2 true
-          config-path: .circleci/workflows2.yml
+
 
