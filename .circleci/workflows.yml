@@ -16,6 +16,9 @@ parameters:
 
 jobs:
   app1-job:
+      docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
     when: 
       - << pipeline.parameters.app1 >>
     jobs:
