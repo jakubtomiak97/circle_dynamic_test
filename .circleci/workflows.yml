@@ -23,6 +23,6 @@ workflows:
         - << pipeline.parameters.app1 >>
     jobs:
       - continuation/continue:
-          configuration_path: apps/app1/.circleci/app1.yml
+          configuration_path: .circleci/app1.yml
 
 
