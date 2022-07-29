@@ -32,7 +32,7 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo app1!"
+          command: "echo app1 test!"
   app2-job:
     docker:
       # next-gen ubuntu image with java 11.0.10
@@ -42,7 +42,7 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo app2!"
+          command: "echo app2 test!"
   app3-job:
     docker:
       # next-gen ubuntu image with java 11.0.10
@@ -52,7 +52,7 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo app3!"
+          command: "echo app3 test!"
 
 
 workflows:
