@@ -76,7 +76,7 @@ workflows:
       - app3-job
       - app3-job:
           requires:
-            - build-app3-job
+            - app3-job
           filters:
             branches:
               only: main
