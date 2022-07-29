@@ -1,7 +1,5 @@
 version: 2.1
 
-setup: true
-
 orbs:
   docker: circleci/docker@1.5.0
   path-filtering: circleci/path-filtering@0.1.3
