@@ -6,7 +6,6 @@ workflows:
   setup:
     jobs:
       - path-filtering/filter:
-          base-revision: circleci-project-setup
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
