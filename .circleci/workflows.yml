@@ -1,0 +1,91 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@1.5.0
+
+parameters:
+  app1:
+    type: boolean
+    default: false
+  app2:
+    type: boolean
+    default: false
+  app3:
+    type: boolean
+    default: false
+
+
+commands:
+  azure-cli-install-login:
+    steps:
+      - run:
+          name: test
+          command: echo test
+
+jobs:
+  app1-job:
+    docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app1!"
+  app2-job:
+    docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app2!"
+  app3-job:
+    docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app3!"
+
+
+workflows:
+  app1:
+    when:
+      or:
+        - << pipeline.parameters.app1 >>
+    jobs:
+      - app1-job
+      - deploy-app1-job:
+          requires:
+            - app1-job
+          filters:
+            branches:
+              only: master
+  app2:
+    when: << pipeline.parameters.app2 >>
+    jobs:
+      - app2-job
+      - deploy-app2-job:
+          requires:
+            - app2-job
+          filters:
+            branches:
+              only: master
+  app3:
+    when: << pipeline.parameters.app3 >>
+    jobs:
+      - build-app3-job
+      - deploy-app3-job:
+          requires:
+            - build-app3-job
+          filters:
+            branches:
+              only: master
+
