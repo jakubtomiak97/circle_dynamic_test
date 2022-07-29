@@ -12,8 +12,4 @@ workflows:
             apps/app3/.* app3 true
             apps/app1/.* app1 true
           config-path: .circleci/workflows.yml
-      # - path-filtering/filter:
-      #     base-revision: main
-      #     mapping: |
-      #       apps/app1/.* app1 true
-      #     config-path: .circleci/app1.yml
+
