@@ -15,4 +15,4 @@ workflows:
           base-revision: main
           mapping: |
             apps/app1/.* app1 true
-          config-path: apps/app1/.circleci/config.yml
+          config-path: .circleci/app1.yml
