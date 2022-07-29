@@ -67,7 +67,7 @@ workflows:
             - app1-job
           filters:
             branches:
-              only: master
+              only: main
   app2:
     when: << pipeline.parameters.app2 >>
     jobs:
@@ -77,7 +77,7 @@ workflows:
             - app2-job
           filters:
             branches:
-              only: master
+              only: main
   app3:
     when: << pipeline.parameters.app3 >>
     jobs:
@@ -87,5 +87,5 @@ workflows:
             - build-app3-job
           filters:
             branches:
-              only: master
+              only: main
 
