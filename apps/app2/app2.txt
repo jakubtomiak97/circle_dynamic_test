@@ -1,1 +1,1 @@
-hello im app2
+hello test circle_dynamic_test2
