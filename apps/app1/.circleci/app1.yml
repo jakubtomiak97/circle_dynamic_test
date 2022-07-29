@@ -23,9 +23,6 @@ jobs:
 
 workflows:
   app1:
-    when:
-      or:
-        - << pipeline.parameters.app1 >>
     jobs:
       - app1-job
       - app1-job:

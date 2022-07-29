@@ -14,30 +14,13 @@ parameters:
     type: boolean
     default: false
 
-jobs:
-  app1-job:
-      docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    when: 
-      - << pipeline.parameters.app1 >>
-    jobs:
-      - continuation/continue:
-          configuration_path: apps/app1/.circleci/test.yml
-
-
 workflows:
   app1:
     when:
       or:
         - << pipeline.parameters.app1 >>
     jobs:
-      - app1-job
-      - app1-job:
-          requires:
-            - app1-job
-          filters:
-            branches:
-              only: main
+      - continuation/continue:
+          configuration_path: apps/app1/.circleci/app1.yml
 
 
