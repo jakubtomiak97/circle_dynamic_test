@@ -22,12 +22,8 @@ parameters:
 workflows:
   setup:
     jobs:
-      when:
-        or:
-          - << pipeline.parameters.app1 >>
-      jobs:
-        - continuation/continue:
-            configuration_path: apps/app1/.circleci/config.yml
+      - continuation/continue:
+          configuration_path: apps/app1/.circleci/config.yml
 
 
 
