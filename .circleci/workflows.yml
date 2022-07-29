@@ -2,8 +2,6 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@1.5.0
-  path-filtering: circleci/path-filtering@0.1.3
-  continuation: circleci/continuation@0.3.1
 
 parameters:
   app1:
@@ -16,11 +14,70 @@ parameters:
     type: boolean
     default: false
 
+jobs:
+  app1-job:
+    docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app1!"
+  app2-job:
+    docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app2!"
+  app3-job:
+    docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app3!"
+
+
 workflows:
-  setup:
+  app1:
+    when:
+      or:
+        - << pipeline.parameters.app1 >>
     jobs:
-      - continuation/continue:
-          configuration_path: apps/app1/.circleci/config.yml
-
-
+      - app1-job
+      - app1-job:
+          requires:
+            - app1-job
+          filters:
+            branches:
+              only: main
+  app2:
+    when: << pipeline.parameters.app2 >>
+    jobs:
+      - app2-job
+      - app2-job:
+          requires:
+            - app2-job
+          filters:
+            branches:
+              only: main
+  app3:
+    when: << pipeline.parameters.app3 >>
+    jobs:
+      - app3-job
+      - app3-job:
+          requires:
+            - app3-job
+          filters:
+            branches:
+              only: main
 
