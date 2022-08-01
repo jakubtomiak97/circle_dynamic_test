@@ -9,5 +9,5 @@ workflows:
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
-            apps/app3/.* app3 true
+            apps/app3/.* app2 app3 true
           config-path: .circleci/workflows.yml
