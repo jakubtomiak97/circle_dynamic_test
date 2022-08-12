@@ -26,7 +26,9 @@ jobs:
           condition:
             when : << pipeline.parameters.app1 >> 
           steps:
-            - run: "echo 'test'"
+            - run:
+              name: "Say hello"
+              command: "echo app2 prod!"
   # app2-job:
   #   docker:
   #     # next-gen ubuntu image with java 11.0.10
