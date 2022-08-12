@@ -70,6 +70,11 @@ workflows:
             branches:
               only: main
 
+  app2: 
+    when: not << pipeline.parameters.app2 >>
+    jobs:
+      - apps-set-true
+          
   app2:
     when: << pipeline.parameters.app2 >>
     jobs:
@@ -80,9 +85,6 @@ workflows:
           filters:
             branches:
               only: main
-   jobs:
-    - apps-set-true
-
   app3:
     when: << pipeline.parameters.app3 >>
     jobs:
@@ -93,6 +95,4 @@ workflows:
           filters:
             branches:
               only: main
-   jobs:
-    - apps-set-true
 
