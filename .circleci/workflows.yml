@@ -15,7 +15,6 @@ parameters:
     default: false
 
 jobs:
-
   app1-job:
     docker:
       - image: cimg/base:stable
@@ -37,12 +36,11 @@ jobs:
             - run: echo "not running"
 
 
-
 workflows:
   app1:
     jobs:
       - app1-job:
-          custom_parameter: <<parameters.app1>>
+          custom_parameter: "test"
       - app1-job   
 
 
