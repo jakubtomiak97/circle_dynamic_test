@@ -29,7 +29,6 @@ jobs:
             - run:
                 name: "Say hello"
                 command: "echo app1 prod!"
-      - run: ' echo "no build requiered"'
 
   # app2-job:
   #   docker:
