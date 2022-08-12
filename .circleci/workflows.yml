@@ -64,9 +64,6 @@ workflows:
    app1:
     jobs:
       - app1-job:
-          filters:
-            branches:
-              only: main
 
           
   #  app2:
