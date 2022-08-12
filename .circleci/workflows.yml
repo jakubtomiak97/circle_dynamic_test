@@ -71,7 +71,7 @@ workflows:
               only: main
 
   app2-expected-true: 
-    when: << !pipeline.parameters.app2 >>
+    when: ! << pipeline.parameters.app2 >>
     jobs:
       - apps-set-true
           
