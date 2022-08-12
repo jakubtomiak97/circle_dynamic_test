@@ -24,10 +24,9 @@ jobs:
       - checkout
       - when:
           condition:
-            or:
-            - << pipeline.parameters.app1 >>
-            steps:
-              - run: "echo 'test'"
+            equal : ['true', << pipeline.parameters.app1 >> ]
+          steps:
+            - run: "echo 'test'"
   # app2-job:
   #   docker:
   #     # next-gen ubuntu image with java 11.0.10
