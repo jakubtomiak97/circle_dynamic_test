@@ -38,11 +38,11 @@ jobs:
 workflows:
    app1:
      when: << pipeline.parameters.app1 >> 
-      jobs:
-        - app1-job
+     jobs:
+      - app1-job
      when: not << pipeline.parameters.app1 >> 
-      jobs:
-        - apps-set-true
+     jobs:
+      - apps-set-true
 
           
   #  app2:
