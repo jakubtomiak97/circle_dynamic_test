@@ -26,10 +26,7 @@ jobs:
           or:
            - << pipeline.parameters.app1 >>
           steps:
-            - run:
-                name: "Say hello"
-                command: "echo app1 prod!"
-
+            - run: "echo 'test'"
   # app2-job:
   #   docker:
   #     # next-gen ubuntu image with java 11.0.10
