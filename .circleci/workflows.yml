@@ -30,26 +30,27 @@ jobs:
                 name: "Say hello"
                 command: "echo app1 prod!"
       - run: ' echo "no build requiered"'
-  app2-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app2 prod!"
-  app3-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app3 prod!"
+
+  # app2-job:
+  #   docker:
+  #     # next-gen ubuntu image with java 11.0.10
+  #     - image: cimg/base:stable
+  #   resource_class: small
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Say hello"
+  #         command: "echo app2 prod!"
+  # app3-job:
+  #   docker:
+  #     # next-gen ubuntu image with java 11.0.10
+  #     - image: cimg/base:stable
+  #   resource_class: small
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Say hello"
+  #         command: "echo app3 prod!"
 
   apps-set-true:
     docker:
@@ -70,26 +71,26 @@ workflows:
               only: main
 
           
-   app2:
-    when: << pipeline.parameters.app2 >>
-    jobs:
-      - app2-job
-      - app2-job:
-          requires:
-            - app2-job
-          filters:
-            branches:
-              only: main
+  #  app2:
+  #   when: << pipeline.parameters.app2 >>
+  #   jobs:
+  #     - app2-job
+  #     - app2-job:
+  #         requires:
+  #           - app2-job
+  #         filters:
+  #           branches:
+  #             only: main
 
 
-   app3:
-    when: << pipeline.parameters.app3 >>
-    jobs:
-      - app3-job
-      - app3-job:
-          requires:
-            - app3-job
-          filters:
-            branches:
-              only: main
+  #  app3:
+  #   when: << pipeline.parameters.app3 >>
+  #   jobs:
+  #     - app3-job
+  #     - app3-job:
+  #         requires:
+  #           - app3-job
+  #         filters:
+  #           branches:
+  #             only: main
 
