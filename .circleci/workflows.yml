@@ -70,21 +70,21 @@ workflows:
             branches:
               only: main
 
-  app2: 
-    when: not << pipeline.parameters.app2 >>
-    jobs:
-      - apps-set-true
           
   app2:
-    when: << pipeline.parameters.app2 >>
-    jobs:
-      - app2-job
-      - app2-job:
-          requires:
+   - when: 
+       condition:
+         equal: << pipeline.parameters.app2 >>
+          jobs:
             - app2-job
-          filters:
-            branches:
-              only: main
+            - app2-job:
+                requires:
+                  - app2-job
+                filters:
+                  branches:
+                    only: main
+          - run: 'echo "No build requiered"'
+
   app3:
     when: << pipeline.parameters.app3 >>
     jobs:
