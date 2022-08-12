@@ -40,11 +40,8 @@ workflows:
      when: << pipeline.parameters.app1 >> 
      jobs:
       - app1-job
-     unless: not << pipeline.parameters.app1 >> 
-     steps:
-      - run: 'echo "no build requiered"'
-
-          
+    steps:
+    - run: 'echo "no build requiered"'          
   #  app2:
   #   jobs:
   #     - app2-job
