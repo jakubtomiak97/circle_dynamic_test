@@ -27,7 +27,7 @@ jobs:
             when : << pipeline.parameters.app1 >> 
           steps:
             - run: "echo 'running'"
-      - run: "echo 'not running'"
+
   # app2-job:
   #   docker:
   #     # next-gen ubuntu image with java 11.0.10
