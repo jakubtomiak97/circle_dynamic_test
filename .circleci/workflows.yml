@@ -37,13 +37,12 @@ jobs:
 
 workflows:
    app1:
-     when:
-       - or: << pipeline.parameters.app1 >> 
-         jobs:
-           - app1-job
-       - or: not << pipeline.parameters.app1 >> 
-         jobs:
-           - apps-set-true
+     when: << pipeline.parameters.app1 >> 
+      jobs:
+        - app1-job
+     when: not << pipeline.parameters.app1 >> 
+      jobs:
+        - apps-set-true
 
           
   #  app2:
