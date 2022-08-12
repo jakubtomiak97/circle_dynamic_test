@@ -72,7 +72,10 @@ workflows:
 
   app2-expected-true: 
     when:
-      not: << pipeline.parameters.app2 >>
+      condition:
+        not:
+          equal:
+            - << pipeline.parameters.app2 >>
        jobs:
          - apps-set-true
               
@@ -96,9 +99,3 @@ workflows:
           filters:
             branches:
               only: main
-
-  app3-expected-true:
-    when:
-      not: << pipeline.parameters.app3 >>
-      jobs:
-        - apps-set-true
