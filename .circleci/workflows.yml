@@ -22,9 +22,14 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app1 prod!"
+      - when:
+          or:
+           - << pipeline.parameters.app1 >>
+          steps:
+            - run:
+                name: "Say hello"
+                command: "echo app1 prod!"
+      - run: ' echo "no build requiered"'
   app2-job:
     docker:
       # next-gen ubuntu image with java 11.0.10
@@ -58,9 +63,6 @@ jobs:
 
 workflows:
   app1:
-    when:
-      or:
-        - << pipeline.parameters.app1 >>
     jobs:
       - app1-job
       - app1-job:
@@ -71,20 +73,17 @@ workflows:
               only: main
 
           
-  app2:
-   - when: 
-       condition:
-         equal: << pipeline.parameters.app2 >>
-           steps:
-            jobs:
-              - app2-job
-              - app2-job:
-                  requires:
-                    - app2-job
-                  filters:
-                    branches:
-                      only: main
-          - run: 'echo "No build requiered"'
+   app2:
+    when: << pipeline.parameters.app2 >>
+    jobs:
+      - app2-job
+      - app2-job:
+          requires:
+            - app2-job
+          filters:
+            branches:
+              only: main
+
 
   app3:
     when: << pipeline.parameters.app3 >>
