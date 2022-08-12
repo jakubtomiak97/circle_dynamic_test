@@ -24,7 +24,7 @@ jobs:
       - checkout
       - when:
           condition:
-            equal : ['true', << pipeline.parameters.app1 >> ]
+            when : << pipeline.parameters.app1 >> 
           steps:
             - run: "echo 'test'"
   # app2-job:
