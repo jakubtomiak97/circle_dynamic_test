@@ -70,11 +70,10 @@ workflows:
             branches:
               only: main
 
-  app2-expected-true:
-    apps:
-      when:
-        not: << pipeline.parameters.app2 >>
-        jobs:
+  app2-expected-true: 
+    when:
+      not: << pipeline.parameters.app2 >>
+       jobs:
          - apps-set-true
               
   app2:
@@ -99,8 +98,7 @@ workflows:
               only: main
 
   app3-expected-true:
-    apps:
-      when:
-        not: << pipeline.parameters.app3 >>
-        jobs:
-         - apps-set-true
+    when:
+      not: << pipeline.parameters.app3 >>
+      jobs:
+        - apps-set-true
