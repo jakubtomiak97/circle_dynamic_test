@@ -62,7 +62,7 @@ jobs:
 workflows:
    app1:
     jobs:
-      - app1-job:
+      - app1-job
 
           
   #  app2:
