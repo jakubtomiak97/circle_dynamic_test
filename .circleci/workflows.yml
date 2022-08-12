@@ -40,7 +40,7 @@ workflows:
      when: << pipeline.parameters.app1 >> 
      jobs:
       - app1-job
-     when: not << pipeline.parameters.app1 >> 
+     unless: not << pipeline.parameters.app1 >> 
      jobs:
       - apps-set-true
 
