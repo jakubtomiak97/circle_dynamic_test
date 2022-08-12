@@ -95,3 +95,4 @@ workflows:
               only: main
    jobs:
     - apps-set-true
+
