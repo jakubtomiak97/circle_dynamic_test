@@ -35,11 +35,35 @@ jobs:
             - checkout
             - run: echo "not running"
 
+  app2-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
+    steps:
+      - when:
+          condition: <<parameters.custom_parameter>>
+          steps:
+            - checkout
+            - run: echo "running"
+      - unless:
+          condition: <<parameters.custom_parameter>>
+          steps:
+            - checkout
+            - run: echo "not running"
 
 workflows:
   app1:
     jobs:
       - app1-job:
           custom_parameter: <<pipeline.parameters.app1>>
+
+  app2:
+    jobs:
+      - app2-job:
+          custom_parameter: <<pipeline.parameters.app2>>
 
 
