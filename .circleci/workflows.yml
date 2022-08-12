@@ -75,14 +75,15 @@ workflows:
    - when: 
        condition:
          equal: << pipeline.parameters.app2 >>
-          jobs:
-            - app2-job
-            - app2-job:
-                requires:
-                  - app2-job
-                filters:
-                  branches:
-                    only: main
+           steps:
+            jobs:
+              - app2-job
+              - app2-job:
+                  requires:
+                    - app2-job
+                  filters:
+                    branches:
+                      only: main
           - run: 'echo "No build requiered"'
 
   app3:
