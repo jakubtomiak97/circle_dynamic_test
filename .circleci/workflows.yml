@@ -21,7 +21,7 @@ jobs:
     resource_class: small
     parameters:
       custom_parameter:
-        type: string
+        type: boolean
         default: ""
     steps:
       - when:
