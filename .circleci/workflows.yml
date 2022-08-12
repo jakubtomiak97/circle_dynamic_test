@@ -18,36 +18,31 @@ jobs:
 
   app1-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
+    parameters:
+      custom_parameter:
+        type: string
+        default: ""
     steps:
-      - checkout
-      - run: "echo 'app1 not running'"
-
-  apps-set-true:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - run: 'echo "No build requiered"'
+      - when:
+          condition: <<parameters.custom_parameter>>
+          steps:
+            - checkout
+            - run: echo "running"
+      - unless:
+          condition: <<parameters.custom_parameter>>
+          steps:
+            - checkout
+            - run: echo "not running"
 
 
 
 workflows:
-   app1:
-     when: << pipeline.parameters.app1 >> 
-     jobs:
-      - app1-job
-     steps:
-      - run: 'echo "no build requiered"'          
-  #  app2:
-  #   jobs:
-  #     - app2-job
-
-  #  app3:
-  #   jobs:
-  #     - app3-job
+  app1:
+    jobs:
+      - app1-job:
+          custom_parameter: <<parameters.app1>>
+      - app1-job   
 
 
