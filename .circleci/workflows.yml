@@ -46,6 +46,15 @@ jobs:
           name: "Say hello"
           command: "echo app3 prod!"
 
+  apps-set-true:
+    docker:
+      # next-gen ubuntu image with java 11.0.10
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - run: 'echo "No build requiered"'
+
+
 
 workflows:
   app1:
@@ -60,6 +69,14 @@ workflows:
           filters:
             branches:
               only: main
+
+  app2-expected-true:
+    apps:
+      when:
+        not: << pipeline.parameters.app2 >>
+        jobs:
+         - apps-set-true
+              
   app2:
     when: << pipeline.parameters.app2 >>
     jobs:
@@ -81,3 +98,9 @@ workflows:
             branches:
               only: main
 
+  app3-expected-true:
+    apps:
+      when:
+        not: << pipeline.parameters.app3 >>
+        jobs:
+         - apps-set-true
