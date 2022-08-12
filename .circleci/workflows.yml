@@ -19,18 +19,14 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     steps:
       - when:
-          condition: <<parameters.custom_parameter>>
+          condition: <<pipeline.parameters.app1>>
           steps:
             - checkout
             - run: echo "running"
       - unless:
-          condition: <<parameters.custom_parameter>>
+          condition: <<pipeline.parameters.app1>>
           steps:
             - checkout
             - run: echo "not running"
@@ -39,18 +35,14 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     steps:
       - when:
-          condition: <<parameters.custom_parameter>>
+          condition: <<pipeline.parameters.app2>>
           steps:
             - checkout
             - run: echo "running"
       - unless:
-          condition: <<parameters.custom_parameter>>
+          condition: <<pipeline.parameters.app2>>
           steps:
             - checkout
             - run: echo "not running"
@@ -59,18 +51,14 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     steps:
       - when:
-          condition: <<parameters.custom_parameter>>
+          condition: <<pipeline.parameters.app3>>
           steps:
             - checkout
             - run: echo "running"
       - unless:
-          condition: <<parameters.custom_parameter>>
+          condition: <<ppipeline.parameters.app3>>
           steps:
             - checkout
             - run: echo "not running"
@@ -79,15 +67,11 @@ workflows:
   app1:
     jobs:
       - app1-job:
-          custom_parameter: <<pipeline.parameters.app1>>
 
   app2:
     jobs:
       - app2-job:
-          custom_parameter: <<pipeline.parameters.app2>>
-
 
   app3:
     jobs:
       - app3-job:
-          custom_parameter: <<pipeline.parameters.app3>>
