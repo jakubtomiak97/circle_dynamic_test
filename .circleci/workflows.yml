@@ -82,7 +82,7 @@ workflows:
               only: main
 
 
-  app3:
+   app3:
     when: << pipeline.parameters.app3 >>
     jobs:
       - app3-job
