@@ -56,7 +56,10 @@ jobs:
             when : << pipeline.parameters.app3 >> 
           steps:
             - run: "echo 'app3 running'"
-      - run: "echo 'app3 not running'"
+          condition:
+            when : not << pipeline.parameters.app3 >> 
+          steps:
+            - run: "echo 'app3 not running'"
 
 
   apps-set-true:
