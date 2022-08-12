@@ -14,7 +14,7 @@ parameters:
     type: boolean
     default: false
 
-
+#hehe
 commands:
   azure-cli-install-login:
     steps:
