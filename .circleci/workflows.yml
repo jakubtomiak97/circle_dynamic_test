@@ -21,12 +21,12 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: <<pipeline.parameters.app1>>
+          condition: << pipeline.parameters.app1 >>
           steps:
             - checkout
             - run: echo "running"
       - unless:
-          condition: <<pipeline.parameters.app1>>
+          condition: << pipeline.parameters.app1 >>
           steps:
             - checkout
             - run: echo "not running"
@@ -37,12 +37,12 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: <<pipeline.parameters.app2>>
+          condition: << pipeline.parameters.app2 >>
           steps:
             - checkout
             - run: echo "running"
       - unless:
-          condition: <<pipeline.parameters.app2>>
+          condition: << pipeline.parameters.app2 >>
           steps:
             - checkout
             - run: echo "not running"
@@ -53,12 +53,12 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: <<pipeline.parameters.app3>>
+          condition: << pipeline.parameters.app3 >>
           steps:
             - checkout
             - run: echo "running"
       - unless:
-          condition: <<ppipeline.parameters.app3>>
+          condition: << ppipeline.parameters.app3 >>
           steps:
             - checkout
             - run: echo "not running"
