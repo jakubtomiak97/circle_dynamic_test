@@ -62,7 +62,6 @@ workflows:
 
           
    app2:
-    when: << pipeline.parameters.app2 >>
     jobs:
       - app2-job
 
