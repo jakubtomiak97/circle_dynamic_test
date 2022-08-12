@@ -41,8 +41,8 @@ workflows:
      jobs:
       - app1-job
      unless: not << pipeline.parameters.app1 >> 
-     jobs:
-      - apps-set-true
+     steps:
+      - run: 'echo "no build requiered"'
 
           
   #  app2:
