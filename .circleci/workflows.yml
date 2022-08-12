@@ -40,7 +40,7 @@ workflows:
   app1:
     jobs:
       - app1-job:
-          custom_parameter: "test"
+          custom_parameter: 
       - app1-job   
 
 
