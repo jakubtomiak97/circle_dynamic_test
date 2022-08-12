@@ -23,44 +23,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - when:
-          condition:
-            when : << pipeline.parameters.app1 >> 
-          steps:
-            - run: "echo 'app1 running'"
       - run: "echo 'app1 not running'"
-
-  app2-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      - when:
-          condition:
-            when : << pipeline.parameters.app2 >> 
-          steps:
-            - run: "echo 'app2 running'"
-      - run: "echo 'app2 not running'"
-
-  app3-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      - when:
-          condition:
-            when : << pipeline.parameters.app3 >> 
-          steps:
-            - run: "echo 'app3 running'"
-            
-            when : not << pipeline.parameters.app3 >> 
-          steps:
-            - run: "echo 'app3 not running'"
-
 
   apps-set-true:
     docker:
@@ -74,16 +37,23 @@ jobs:
 
 workflows:
    app1:
-    jobs:
-      - app1-job
+     when:
+       - or:
+           - << pipeline.parameters.app1 >> 
+           jobs:
+            - app1-job
+       - or: 
+           - not << pipeline.parameters.app1 >> 
+           jobs:
+            - apps-set-true
 
           
-   app2:
-    jobs:
-      - app2-job
+  #  app2:
+  #   jobs:
+  #     - app2-job
 
-   app3:
-    jobs:
-      - app3-job
+  #  app3:
+  #   jobs:
+  #     - app3-job
 
 
