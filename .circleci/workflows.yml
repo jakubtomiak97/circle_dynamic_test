@@ -62,12 +62,9 @@ jobs:
 
 
 workflows:
-  app1:
+   app1:
     jobs:
-      - app1-job
       - app1-job:
-          requires:
-            - app1-job
           filters:
             branches:
               only: main
