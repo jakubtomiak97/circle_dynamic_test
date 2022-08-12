@@ -22,7 +22,7 @@ jobs:
     parameters:
       custom_parameter:
         type: boolean
-        default: ""
+        default: "false"
     steps:
       - when:
           condition: <<parameters.custom_parameter>>
