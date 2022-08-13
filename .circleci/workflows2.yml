@@ -13,71 +13,107 @@ parameters:
   app3:
     type: boolean
     default: false
+  trigger-all:
+    type: boolean
+    default: false
+
+
+commands: # a reusable command with parameters
+  greeting:
+    parameters:
+      to:
+        default: false
+        type: boolean
+    steps:
+      - run: echo "Hello <<parameters.to>>"
 
 jobs:
   app1-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app1!"
+      - when:
+          condition: << pipeline.parameters.app1 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app1 >> 
+
+      - unless:
+          condition: << pipeline.parameters.app1 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app1 >> 
+
+
   app2-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app2!"
+      - when:
+          condition: << pipeline.parameters.app2 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app2 >> 
+      - unless:
+          condition: << pipeline.parameters.app2 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app2 >> 
+
+
   app3-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app3!"
+      - when:
+          condition: << pipeline.parameters.app3 >> 
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app3 >> 
+      - unless:
+          condition: << pipeline.parameters.app3 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app3 >> 
 
 
 workflows:
   app1:
-    when:
+    when: 
       or:
+        - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app1 >>
     jobs:
-      - app1-job
       - app1-job:
-          requires:
-            - app1-job
           filters:
             branches:
-              only: main
-  app2:
-    when: << pipeline.parameters.app2 >>
-    jobs:
-      - app2-job
-      - app2-job:
-          requires:
-            - app2-job
-          filters:
-            branches:
-              only: main
-  app3:
-    when: << pipeline.parameters.app3 >>
-    jobs:
-      - app3-job
-      - app3-job:
-          requires:
-            - app3-job
-          filters:
-            branches:
-              only: main
+              only: main-test
 
+  app2:
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app2 >>
+    jobs:
+      - app2-job:
+          filters:
+            branches:
+              only: main-test
+
+  app3:
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app3 >>
+    jobs:
+      - app3-job:
+          filters:
+            branches:
+              only: main-test
