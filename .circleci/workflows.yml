@@ -37,10 +37,7 @@ jobs:
           condition:
             or:
               - and:
-                - equal: [ main, << pipeline.git.branch >> ]
-                - or: [ << pipeline.parameters.param1 >>, << pipeline.parameters.param2 >> ]
-              - or:
-                - equal: [ false, << pipeline.parameters.param1 >> ]
+                - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo "I am on main AND param1 is true OR param2 is true -- OR param1 is false"
 
