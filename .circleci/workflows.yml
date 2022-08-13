@@ -62,25 +62,27 @@ jobs:
             - greeting:
                 to: "app2 not running"
 
-  # app3-job:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   resource_class: small
-  #   parameters:
-  #     custom_parameter:
-  #       type: boolean
-  #       default: false
-  #   steps:
-  #     - when:
-  #         condition: <<parameters.custom_parameter>>
-  #         steps:
-  #           - checkout
-  #           - run: echo "running"
-  #     - unless:
-  #         condition: <<parameters.custom_parameter>>
-  #         steps:
-  #           - checkout
-  #           - run: echo "not running"
+
+  app3-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
+    steps:
+      - when:
+          condition: << pipeline.parameters.app3 >>
+          steps:
+            - greeting:
+                to: "app3 running"
+      - unless:
+          condition: << pipeline.parameters.app3 >>
+          steps:
+            - greeting:
+                to: "app3 not running"
+
 
 workflows:
   app1:
@@ -91,8 +93,6 @@ workflows:
     jobs:
       - app2-job
 
-
-  # app3:
-  #   jobs:
-  #     - app3-job:
-  #         custom_parameter: <<pipeline.parameters.app3>>
+  app3:
+    jobs:
+      - app3-job
