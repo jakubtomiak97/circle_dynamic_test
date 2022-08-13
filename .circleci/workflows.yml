@@ -37,7 +37,7 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app1 >> 
-              - equal: [ main, << pipeline.git.branch >> ]
+              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - greeting:
                 to: << pipeline.parameters.app1 >> 
@@ -62,7 +62,7 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app2 >> 
-              - equal: [ main, << pipeline.git.branch >> ]
+              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - greeting:
                 to: << pipeline.parameters.app2 >> 
@@ -82,7 +82,7 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app3 >> 
-              - equal: [ main, << pipeline.git.branch >> ]
+              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - greeting:
                 to: << pipeline.parameters.app3 >> 
