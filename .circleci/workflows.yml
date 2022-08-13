@@ -39,15 +39,15 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "I am on main AND param1 is true OR param2 is true -- OR param1 is false"
+            - run: echo "1 of these are true, running"
 
       - unless:
-          condition: 
-            or: 
-              - << pipeline.parameters.app1 >>
-              - << pipeline.parameters.trigger-all >>
+          condition:
+            or:
+              - and:
+                - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo not running 
+            - run: echo "1 of these is false, not running "
 
 
   app2-job:
@@ -60,19 +60,20 @@ jobs:
         default: false
     steps:
       - when:
-          condition: 
+          condition:
             or:
-              - << pipeline.parameters.app2 >> 
-              - << pipeline.parameters.trigger-all >>
+              - and:
+                - or: [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo running
+            - run: echo "1 of these are true, running"
+
       - unless:
           condition:
-            or: 
-              - << pipeline.parameters.app2 >>
-              - << pipeline.parameters.trigger-all >>
+            or:
+              - and:
+                - or: [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo not running
+            - run: echo "1 of these is false, not running "
 
 
   app3-job:
@@ -81,19 +82,20 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: 
+          condition:
             or:
-              - << pipeline.parameters.app3 >> 
-              - << pipeline.parameters.trigger-all >>
+              - and:
+                - or: [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo running
+            - run: echo "1 of these are true, running"
+
       - unless:
-          condition: 
+          condition:
             or:
-              - << pipeline.parameters.app3 >>
-              - << pipeline.parameters.trigger-all >>
+              - and:
+                - or: [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo not running
+            - run: echo "1 of these is false, not running "
 
 workflows:
 
