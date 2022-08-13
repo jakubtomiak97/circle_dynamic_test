@@ -36,14 +36,18 @@ jobs:
       - when:
           condition: 
             or:
-              - [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
+              - << pipeline.parameters.app1 >> 
+              or:
+                - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo running
 
       - unless:
           condition: 
-            or: 
-              - [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
+            or:
+              - << pipeline.parameters.app1 >> 
+              or:
+                - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo not running 
 
@@ -60,13 +64,17 @@ jobs:
       - when:
           condition: 
             or:
-              - [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
+              - << pipeline.parameters.app2 >> 
+              or:
+                - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo running
       - unless:
           condition:
-            or: 
-              - [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
+            or:
+              - << pipeline.parameters.app2 >> 
+              or:
+                - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo not running
 
@@ -79,13 +87,17 @@ jobs:
       - when:
           condition: 
             or:
-              - [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
+              - << pipeline.parameters.app3 >> 
+              or:
+                - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo running
       - unless:
           condition: 
             or:
-              - [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
+              - << pipeline.parameters.app3 >> 
+              or:
+                - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo not running
 
