@@ -42,8 +42,7 @@ jobs:
             - run: echo running
 
       - unless:
-          steps:
-            - run: echo not unning 
+          - run: echo not unning 
 
 
   app2-job:
@@ -63,8 +62,7 @@ jobs:
           steps:
             - run: echo running
       - unless:
-          steps:
-            - run: echo not running
+          - run: echo not running
 
 
   app3-job:
@@ -80,8 +78,7 @@ jobs:
           steps:
             - run: echo running
       - unless:
-          steps:
-            - run: echo not running
+          - run: echo not running
 
 workflows:
 
