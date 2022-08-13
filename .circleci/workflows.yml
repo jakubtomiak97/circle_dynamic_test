@@ -30,11 +30,10 @@ jobs:
     steps:
       - when:
           condition: <<parameters.custom_parameter>>
-          steps:
-            - checkout
-            - run: echo "running"
           jobs:
             - test
+            steps:
+              - run: echo "running"
       - unless:
           condition: <<parameters.custom_parameter>>
           steps:
