@@ -18,8 +18,8 @@ commands:
   common:
     parameters:
       custom_parameter:
-        default:  false
-        type: boolean
+        default: "test"
+        type: string
     steps:
       - run: echo "Hello <<parameters.custom_parameter>>"
 
@@ -33,12 +33,12 @@ jobs:
           condition: <<parameters.custom_parameter>>
           steps:
             - common:
-                custom_parameter: <<parameters.custom_parameter>>
+                custom_parameter: "test"
       - unless:
           condition: <<parameters.custom_parameter>>
           steps:
             - common:
-                custom_parameter: <<parameters.custom_parameter>>
+                custom_parameter: "test"
 
   # app2-job:
   #   docker:
