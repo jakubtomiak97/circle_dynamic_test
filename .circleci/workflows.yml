@@ -37,7 +37,6 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app1 >> 
-              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - run: echo running
 
@@ -60,7 +59,6 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app2 >> 
-              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - run: echo running
       - unless:
@@ -78,7 +76,6 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app3 >> 
-              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - run: echo running
       - unless:
