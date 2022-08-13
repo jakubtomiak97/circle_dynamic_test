@@ -38,8 +38,8 @@ jobs:
             or:
               - and:
                 - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
-      steps:
-        - run: echo running
+        steps:
+          - run: echo running
 
       - unless:
           condition: 
