@@ -13,71 +13,114 @@ parameters:
   app3:
     type: boolean
     default: false
+  trigger-all:
+    type: boolean
+    default: false
+
+
+commands: # a reusable command with parameters
+  greeting:
+    parameters:
+      to:
+        default: false
+        type: boolean
+    steps:
+      - run: echo "Hello <<parameters.to>>"
 
 jobs:
   app1-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app1 prod!"
+      - when:
+          condition: 
+            or:
+              - << pipeline.parameters.app1 >> 
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: echo running
+
+      - unless:
+          condition: 
+            or: 
+              - << pipeline.parameters.app1 >>
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: echo not running 
+
+
   app2-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app2 prod!"
+      - when:
+          condition: 
+            or:
+              - << pipeline.parameters.app2 >> 
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: echo running
+      - unless:
+          condition:
+            or: 
+              - << pipeline.parameters.app2 >>
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: echo not running
+
+
   app3-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app3 prod!"
+      - when:
+          condition: 
+            or:
+              - << pipeline.parameters.app3 >> 
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: echo running
+      - unless:
+          condition: 
+            or:
+              - << pipeline.parameters.app3 >>
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: echo not running
+
 
 
 workflows:
   app1:
-    when:
+    when: 
       or:
+        - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app1 >>
+        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app1-job
-      - app1-job:
-          requires:
-            - app1-job
-          filters:
-            branches:
-              only: main
+
   app2:
-    when: << pipeline.parameters.app2 >>
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app2 >>
+        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app2-job
-      - app2-job:
-          requires:
-            - app2-job
-          filters:
-            branches:
-              only: main
+
   app3:
-    when: << pipeline.parameters.app3 >>
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app3 >>
+        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app3-job
-      - app3-job:
-          requires:
-            - app3-job
-          filters:
-            branches:
-              only: main
-
