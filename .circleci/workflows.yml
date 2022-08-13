@@ -67,7 +67,7 @@ jobs:
           steps:
             - run: echo running
       - unless:
-          condition
+          condition:
             or: 
               - << pipeline.parameters.app2 >>
               - << pipeline.parameters.trigger-all >>
