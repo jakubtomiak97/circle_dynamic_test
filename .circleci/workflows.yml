@@ -30,13 +30,13 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: <<parameters.custom_parameter>>
+          condition: << pipeline.parameters.app1 >>
           steps:
             - greeting:
                 to: "My-Name"
 
       - unless:
-          condition: <<parameters.custom_parameter>>
+          condition: << pipeline.parameters.app1 >>
           steps:
             - greeting:
                 to: "My-Name2"
