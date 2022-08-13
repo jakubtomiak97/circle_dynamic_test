@@ -62,15 +62,13 @@ jobs:
       - when:
           condition: 
             or:
-              - << pipeline.parameters.app2 >> 
-              - << pipeline.parameters.trigger-all >>
+              - << pipeline.parameters.app2, pipeline.parameters.trigger-all >> 
           steps:
             - run: echo running
       - unless:
           condition:
             or: 
-              - << pipeline.parameters.app2 >>
-              - << pipeline.parameters.trigger-all >>
+              - << pipeline.parameters.app2, pipeline.parameters.trigger-all >>
           steps:
             - run: echo not running
 
