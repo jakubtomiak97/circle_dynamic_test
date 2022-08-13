@@ -35,9 +35,7 @@ jobs:
     steps:
       - when:
           condition: 
-            or:
-              - << pipeline.parameters.app1 >> 
-              - << pipeline.parameters.trigger-all >>
+            - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo running
 
@@ -60,9 +58,8 @@ jobs:
     steps:
       - when:
           condition: 
-            or:
-              - << pipeline.parameters.app2 >> 
-              - << pipeline.parameters.trigger-all >>
+            - or: [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
+
           steps:
             - run: echo running
       - unless:
@@ -80,9 +77,7 @@ jobs:
     steps:
       - when:
           condition: 
-            or:
-              - << pipeline.parameters.app3 >> 
-              - << pipeline.parameters.trigger-all >>
+            - or: [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo running
       - unless:
