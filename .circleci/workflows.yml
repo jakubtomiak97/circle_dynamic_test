@@ -16,9 +16,6 @@ parameters:
   trigger-all:
     type: boolean
     default: false
-  is_pr:
-    type: boolean
-    default: false
 
 
 commands: # a reusable command with parameters
@@ -39,16 +36,16 @@ jobs:
       - when:
           condition: 
             or:
-              - << pipeline.parameters.app1 >> 
-              - << pipeline.parameters.trigger-all >>
+              - equal: [ true, << pipeline.parameters.app1 >>  ] 
+              - equal: [ true, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo running
 
       - unless:
           condition: 
             or: 
-              - << pipeline.parameters.app1 >>
-              - << pipeline.parameters.trigger-all >>
+              - equal: [ false, << pipeline.parameters.app1 >>  ] 
+              - equal: [ false, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo not running 
 
@@ -65,15 +62,15 @@ jobs:
       - when:
           condition: 
             or:
-              - << pipeline.parameters.app2 >> 
-              - << pipeline.parameters.trigger-all >>
+              - equal: [ true, << pipeline.parameters.app2 >>  ] 
+              - equal: [ true, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo running
       - unless:
           condition:
             or: 
-              - << pipeline.parameters.app2 >>
-              - << pipeline.parameters.trigger-all >>
+              - equal: [ false, << pipeline.parameters.app2 >>  ] 
+              - equal: [ false, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo not running
 
@@ -86,15 +83,15 @@ jobs:
       - when:
           condition: 
             or:
-              - << pipeline.parameters.app3 >> 
-              - << pipeline.parameters.trigger-all >>
+              - equal: [ true, << pipeline.parameters.app3 >>  ] 
+              - equal: [ true, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo running
       - unless:
           condition: 
             or:
-              - << pipeline.parameters.app3 >>
-              - << pipeline.parameters.trigger-all >>
+              - equal: [ false, << pipeline.parameters.app1 >>  ] 
+              - equal: [ false, << pipeline.parameters.trigger-all >> ]
           steps:
             - run: echo not running
 
