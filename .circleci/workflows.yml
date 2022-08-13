@@ -33,6 +33,8 @@ jobs:
           steps:
             - checkout
             - run: echo "running"
+          jobs:
+            - test
       - unless:
           condition: <<parameters.custom_parameter>>
           steps:
