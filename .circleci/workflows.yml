@@ -25,14 +25,6 @@ commands: # a reusable command with parameters
         default: false
         type: boolean
     steps:
-      - run: echo "Hello <<parameters.to>>"
-
-jobs:
-  app1-job:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
       - when:
           condition: << pipeline.parameters.app1 >>
           steps:
@@ -44,6 +36,15 @@ jobs:
           steps:
             - greeting:
                 to: << pipeline.parameters.app1 >> 
+
+jobs:
+  app1-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - greeting:
+          to: << pipeline.parameters.app1 >> 
 
 
   app2-job:
@@ -55,16 +56,8 @@ jobs:
         type: boolean
         default: false
     steps:
-      - when:
-          condition: << pipeline.parameters.app2 >>
-          steps:
-            - greeting:
-                to: << pipeline.parameters.app2 >> 
-      - unless:
-          condition: << pipeline.parameters.app2 >>
-          steps:
-            - greeting:
-                to: << pipeline.parameters.app2 >> 
+      - greeting:
+          to: << pipeline.parameters.app2>> 
 
 
   app3-job:
@@ -72,17 +65,8 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - when:
-          condition: << pipeline.parameters.app3 >> 
-          steps:
-            - greeting:
-                to: << pipeline.parameters.app3 >> 
-      - unless:
-          condition: << pipeline.parameters.app3 >>
-          steps:
-            - greeting:
-                to: << pipeline.parameters.app3 >> 
-
+      - greeting:
+          to: << pipeline.parameters.app3 >> 
 
 workflows:
   app1:
