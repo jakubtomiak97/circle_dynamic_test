@@ -32,8 +32,8 @@ jobs:
           condition: <<parameters.custom_parameter>>
           jobs:
             - test
-            steps:
-              - run: echo "running"
+          steps:
+            - run: echo "running"
       - unless:
           condition: <<parameters.custom_parameter>>
           steps:
