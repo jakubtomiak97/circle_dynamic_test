@@ -14,14 +14,14 @@ parameters:
     type: boolean
     default: false
 
-commands:
-  common:
+commands: # a reusable command with parameters
+  greeting:
     parameters:
-      custom_parameter:
-        default: "test"
+      to:
+        default: "world"
         type: string
     steps:
-      - run: echo "Hello <<parameters.custom_parameter>>"
+      - run: echo "Hello <<parameters.to>>"
 
 jobs:
   app1-job:
@@ -32,13 +32,15 @@ jobs:
       - when:
           condition: <<parameters.custom_parameter>>
           steps:
-            - common:
-                custom_parameter: "test"
+            - greeting:
+                to: "My-Name"
+
       - unless:
           condition: <<parameters.custom_parameter>>
           steps:
-            - common:
-                custom_parameter: "test"
+            - greeting:
+                to: "My-Name2"
+
 
   # app2-job:
   #   docker:
