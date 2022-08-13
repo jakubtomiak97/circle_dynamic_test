@@ -13,7 +13,9 @@ parameters:
   app3:
     type: boolean
     default: false
-
+  trigger-all:
+    type: boolean
+    default: false
 commands: # a reusable command with parameters
   greeting:
     parameters:
