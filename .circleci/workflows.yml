@@ -129,8 +129,8 @@ workflows:
         - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app1-job
-    requieres:
-      - pre-workflows-job
+        requieres:
+          - pre-workflows-job
 
   app2:
     when: 
@@ -141,8 +141,8 @@ workflows:
         - << pipeline.parameters.is_pr >>
     jobs:
       - app2-job
-    requieres:
-      - pre-workflows-job
+        requieres:
+          - pre-workflows-job
 
   app3:
     when: 
@@ -153,5 +153,5 @@ workflows:
         - << pipeline.parameters.is_pr >>
     jobs:
       - app3-job
-    requieres:
-      - pre-workflows-job
+        requieres:
+          - pre-workflows-job
