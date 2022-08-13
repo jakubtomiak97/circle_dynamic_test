@@ -16,6 +16,8 @@ parameters:
   trigger-all:
     type: boolean
     default: false
+
+    
 commands: # a reusable command with parameters
   greeting:
     parameters:
@@ -110,4 +112,3 @@ workflows:
         - << pipeline.parameters.app3 >>
     jobs:
       - app3-job
-      
