@@ -6,8 +6,8 @@ orbs:
 workflows:
   run-requierd-builds:
     jobs:
-      - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
+      - continuation/continue:
+          configuration_path: ".circleci/workflows.yml"
           parameters: /home/circleci/params.json
           pre-steps:
             - run:
@@ -19,6 +19,8 @@ workflows:
                     IS_PR=true
                   fi
                   echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
+        path-filtering/filter:
+          base-revision: << pipeline.git.branch >>
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
