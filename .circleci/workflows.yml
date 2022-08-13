@@ -39,14 +39,12 @@ jobs:
               - << pipeline.parameters.app1 >> 
               - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
-            - greeting:
-                to: << pipeline.parameters.app1 >> 
+            - run: echo running
 
       - unless:
           condition: << pipeline.parameters.app1 >>
           steps:
-            - greeting:
-                to: << pipeline.parameters.app1 >> 
+            - run: echo not running 
 
 
   app2-job:
@@ -64,13 +62,11 @@ jobs:
               - << pipeline.parameters.app2 >> 
               - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
-            - greeting:
-                to: << pipeline.parameters.app2 >> 
+            - run: echo running
       - unless:
           condition: << pipeline.parameters.app2 >>
           steps:
-            - greeting:
-                to: << pipeline.parameters.app2 >> 
+            - run: echo not running
 
 
   app3-job:
@@ -84,13 +80,11 @@ jobs:
               - << pipeline.parameters.app3 >> 
               - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
-            - greeting:
-                to: << pipeline.parameters.app3 >> 
+            - run: echo running
       - unless:
           condition: << pipeline.parameters.app3 >>
           steps:
-            - greeting:
-                to: << pipeline.parameters.app3 >> 
+            - run: echo not running
 
 
 workflows:
