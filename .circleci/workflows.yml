@@ -98,7 +98,7 @@ jobs:
           steps:
             - run: echo not running
 
-  pre-workflows-job:
+  apps-pre-job:
     docker:
       - image: cimg/base:stable
     resource_class: small
@@ -116,9 +116,9 @@ jobs:
 
 workflows:
 
-  pre-workflows-job:
+  apps-pre-job:
     jobs:
-      - pre-workflows-job
+      - apps-pre-job
 
   app1:
     when: 
@@ -130,7 +130,7 @@ workflows:
     jobs:
       - app1-job:
           requires:
-            - pre-workflows-job
+            - apps-pre-job
 
   app2:
     when: 
@@ -142,7 +142,7 @@ workflows:
     jobs:
       - app2-job:
           requires:
-            - pre-workflows-job
+            - apps-pre-job
 
   app3:
     when: 
@@ -154,4 +154,4 @@ workflows:
     jobs:
       - app3-job:
           requires:
-            - pre-workflows-job
+            - apps-pre-job
