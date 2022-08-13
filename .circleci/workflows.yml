@@ -17,13 +17,13 @@ parameters:
     type: boolean
     default: false
 
-    
+
 commands: # a reusable command with parameters
   greeting:
     parameters:
       to:
-        default: "world"
-        type: string
+        default: false
+        type: boolean
     steps:
       - run: echo "Hello <<parameters.to>>"
 
@@ -37,13 +37,13 @@ jobs:
           condition: << pipeline.parameters.app1 >>
           steps:
             - greeting:
-                to: "app running"
+                to: << pipeline.parameters.app1 >> 
 
       - unless:
           condition: << pipeline.parameters.app1 >>
           steps:
             - greeting:
-                to: "app1 not running"
+                to: << pipeline.parameters.app1 >> 
 
 
   app2-job:
@@ -59,33 +59,29 @@ jobs:
           condition: << pipeline.parameters.app2 >>
           steps:
             - greeting:
-                to: "app2 running"
+                to: << pipeline.parameters.app2 >> 
       - unless:
           condition: << pipeline.parameters.app2 >>
           steps:
             - greeting:
-                to: "app2 not running"
+                to: << pipeline.parameters.app2 >> 
 
 
   app3-job:
     docker:
       - image: cimg/base:stable
     resource_class: small
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     steps:
       - when:
           condition: << pipeline.parameters.app3 >> 
           steps:
             - greeting:
-                to: "app3 running"
+                to: << pipeline.parameters.app3 >> 
       - unless:
           condition: << pipeline.parameters.app3 >>
           steps:
             - greeting:
-                to: "app3 not running"
+                to: << pipeline.parameters.app3 >> 
 
 
 workflows:
