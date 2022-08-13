@@ -42,7 +42,10 @@ jobs:
             - run: echo running
 
       - unless:
-          condition: << pipeline.parameters.app1 >>
+          condition: 
+            or: 
+              - << pipeline.parameters.app1 >>
+              - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo not running 
 
@@ -64,7 +67,10 @@ jobs:
           steps:
             - run: echo running
       - unless:
-          condition: << pipeline.parameters.app2 >>
+          condition
+            or: 
+              - << pipeline.parameters.app2 >>
+              - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo not running
 
@@ -82,7 +88,10 @@ jobs:
           steps:
             - run: echo running
       - unless:
-          condition: << pipeline.parameters.app3 >>
+          condition: 
+            or:
+              - << pipeline.parameters.app3 >>
+              - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo not running
 
