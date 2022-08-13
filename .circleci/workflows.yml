@@ -98,9 +98,29 @@ jobs:
           steps:
             - run: echo not running
 
+  pre-workflows-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - run:
+          command: |
+            if [ -z "${CIRCLE_PULL_REQUEST##*/}" ]
+            then
+              IS_PR=false
+            else
+              IS_PR=true
+            fi
+            echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
+
 
 
 workflows:
+
+  pre-workflows-job:
+    jobs:
+      - pre-workflows-job
+
   app1:
     when: 
       or:
@@ -110,6 +130,8 @@ workflows:
         - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app1-job
+    requieres:
+      - pre-workflow-job
 
   app2:
     when: 
@@ -120,6 +142,8 @@ workflows:
         - << pipeline.parameters.is_pr >>
     jobs:
       - app2-job
+    requieres:
+      - pre-workflow-job
 
   app3:
     when: 
@@ -130,3 +154,5 @@ workflows:
         - << pipeline.parameters.is_pr >>
     jobs:
       - app3-job
+    requieres:
+      - pre-workflow-job
