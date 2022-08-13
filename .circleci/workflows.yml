@@ -34,10 +34,10 @@ jobs:
     resource_class: small
     steps:
       - when:
-        condition:
-          or:
-            - and:
-              - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
+          condition:
+            or:
+              - and:
+                - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
       steps:
         - run: echo running
 
