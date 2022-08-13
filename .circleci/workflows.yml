@@ -33,15 +33,13 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - when:
-          condition: 
-            or:
-              - << pipeline.parameters.app1 >> 
-              - and:
-                  or:
-                    - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: echo running
+    - when:
+        condition:
+          or:
+            - and:
+              - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
+      steps:
+        - run: echo running
 
       - unless:
           condition: 
