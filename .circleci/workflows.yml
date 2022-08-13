@@ -26,16 +26,12 @@ commands: # a reusable command with parameters
         type: boolean
     steps:
       - when:
-          condition: << pipeline.parameters.app1 >>
-          steps:
-            - greeting:
-                to: << pipeline.parameters.app1 >> 
+          condition: << pipeline.parameters.to >>
+          steps: running
 
       - unless:
-          condition: << pipeline.parameters.app1 >>
-          steps:
-            - greeting:
-                to: << pipeline.parameters.app1 >> 
+          condition: << pipeline.parameters.to >>
+          steps: not running
 
 jobs:
   app1-job:
