@@ -39,15 +39,11 @@ jobs:
               - equal: [ true, << pipeline.parameters.app1 >>  ] 
               - equal: [ true, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo not running
+            - run: echo running
 
       - unless:
-          condition: 
-            or: 
-              - equal: [ false, << pipeline.parameters.app1 >>  ] 
-              - equal: [ false, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo running 
+            - run: echo not unning 
 
 
   app2-job:
@@ -65,14 +61,10 @@ jobs:
               - equal: [ true, << pipeline.parameters.app2 >>  ] 
               - equal: [ true, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo not running
-      - unless:
-          condition:
-            or: 
-              - equal: [ false, << pipeline.parameters.app2 >>  ] 
-              - equal: [ false, << pipeline.parameters.trigger-all >> ]
-          steps:
             - run: echo running
+      - unless:
+          steps:
+            - run: echo not running
 
 
   app3-job:
@@ -86,14 +78,10 @@ jobs:
               - equal: [ true, << pipeline.parameters.app3 >>  ] 
               - equal: [ true, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo not running
-      - unless:
-          condition: 
-            or:
-              - equal: [ false, << pipeline.parameters.app1 >>  ] 
-              - equal: [ false, << pipeline.parameters.trigger-all >> ]
-          steps:
             - run: echo running
+      - unless:
+          steps:
+            - run: echo not running
 
 workflows:
 
