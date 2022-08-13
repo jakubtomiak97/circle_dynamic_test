@@ -14,6 +14,10 @@ parameters:
     type: boolean
     default: false
 
+test:
+  steps:
+    - run: echo "running"
+
 jobs:
   app1-job:
     docker:
