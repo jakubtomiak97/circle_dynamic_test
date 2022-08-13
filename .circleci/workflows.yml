@@ -90,7 +90,7 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app1 >>
-        - equal: [ main-test, << pipeline.git.branch >> ]
+        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app1-job
 
@@ -99,7 +99,7 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app2 >>
-        - equal: [ main-test, << pipeline.git.branch >> ]
+        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app2-job
 
@@ -108,6 +108,6 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app3 >>
-        - equal: [ main-test, << pipeline.git.branch >> ]
+        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app3-job
