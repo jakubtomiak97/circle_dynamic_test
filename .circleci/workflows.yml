@@ -91,7 +91,10 @@ workflows:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app1 >>
     jobs:
-      - app1-job
+      - app1-job:
+          filters:
+            branches:
+              only: main-test
 
   app2:
     when: 
@@ -99,7 +102,10 @@ workflows:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app2 >>
     jobs:
-      - app2-job
+      - app2-job:
+          filters:
+            branches:
+              only: main-test
 
   app3:
     when: 
@@ -107,4 +113,7 @@ workflows:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app3 >>
     jobs:
-      - app3-job
+      - app3-job:
+          filters:
+            branches:
+              only: main-test
