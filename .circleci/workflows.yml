@@ -73,7 +73,7 @@ jobs:
         default: false
     steps:
       - when:
-          condition: << pipeline.parameters.app3 >>
+          condition: << pipeline.parameters.app3 >> 
           steps:
             - greeting:
                 to: "app3 running"
@@ -86,13 +86,16 @@ jobs:
 
 workflows:
   app1:
+    when: << pipeline.parameters.trigger-all >>
     jobs:
       - app1-job
 
   app2:
+    when: << pipeline.parameters.trigger-all >>
     jobs:
       - app2-job
 
   app3:
+    when: << pipeline.parameters.trigger-all >>
     jobs:
       - app3-job

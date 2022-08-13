@@ -10,6 +10,7 @@ workflows:
             apps/app1/.* app1 true
             apps/app2/.* app2 true
             apps/app3/.* app3 true
+            .circleci/.* trigger-all true 
           config-path: .circleci/workflows.yml
 
 
