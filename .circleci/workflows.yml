@@ -88,16 +88,25 @@ jobs:
 
 workflows:
   app1:
-    when: << pipeline.parameters.trigger-all >>
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app1 >>
     jobs:
       - app1-job
 
   app2:
-    when: << pipeline.parameters.trigger-all >>
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app2 >>
     jobs:
       - app2-job
 
   app3:
-    when: << pipeline.parameters.trigger-all >>
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app3 >>
     jobs:
       - app3-job
