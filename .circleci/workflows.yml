@@ -33,7 +33,7 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-    - when:
+      - when:
         condition:
           or:
             - and:
