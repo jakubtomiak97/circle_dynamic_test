@@ -16,6 +16,9 @@ parameters:
   trigger-all:
     type: boolean
     default: false
+  is_pr:
+    type: boolean
+    default: false
 
 
 commands: # a reusable command with parameters
@@ -103,8 +106,8 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app1 >>
+        - << pipeline.parameters.is_pr >>
         - equal: [ main, << pipeline.git.branch >> ]
-        - equal : [ main-test, << pipeline.git.branch >> ]
     jobs:
       - app1-job
 
@@ -114,7 +117,7 @@ workflows:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app2 >>
         - equal: [ main, << pipeline.git.branch >> ]
-        - equal : [ main-test, << pipeline.git.branch >> ]
+        - << pipeline.parameters.is_pr >>
     jobs:
       - app2-job
 
@@ -124,6 +127,6 @@ workflows:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app3 >>
         - equal: [ main, << pipeline.git.branch >> ]
-        - equal : [ main-test, << pipeline.git.branch >> ]
+        - << pipeline.parameters.is_pr >>
     jobs:
       - app3-job

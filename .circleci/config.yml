@@ -2,6 +2,7 @@ version: 2.1
 setup: true
 orbs:
   path-filtering: circleci/path-filtering@0.1.3
+  continuation: circleci/continuation@0.2.0
 workflows:
   run-requierd-builds:
     jobs:
@@ -13,6 +14,19 @@ workflows:
             apps/app3/.* app3 true
             .circleci/.* trigger-all true 
           config-path: .circleci/workflows.yml
+      - continuation/continue:
+          configuration_path: ".circleci/main.yml"
+          parameters: /home/circleci/params.json
+          pre-steps:
+            - run:
+                command: |
+                  if [ -z "${CIRCLE_PULL_REQUEST##*/}" ]
+                  then
+                    IS_PR=false
+                  else
+                    IS_PR=true
+                  fi
+                  echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
 
 
 
