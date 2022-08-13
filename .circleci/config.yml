@@ -19,7 +19,7 @@ workflows:
                     IS_PR=true
                   fi
                   echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
-        path-filtering/filter:
+      - path-filtering/filter:
           base-revision: << pipeline.git.branch >>
           mapping: |
             apps/app1/.* app1 true
