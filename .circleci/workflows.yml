@@ -43,21 +43,15 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - greeting:
-          to: << pipeline.parameters.app1 >> 
+      - greeting
 
 
   app2-job:
     docker:
       - image: cimg/base:stable
     resource_class: small
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     steps:
-      - greeting:
-          to: << pipeline.parameters.app2>> 
+      - greeting
 
 
   app3-job:
@@ -65,8 +59,7 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - greeting:
-          to: << pipeline.parameters.app3 >> 
+      - greeting
 
 workflows:
   app1:
