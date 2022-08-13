@@ -8,25 +8,15 @@ workflows:
     jobs:
       - path-filtering/filter:
           base-revision: << pipeline.git.branch >>
+          output-path: /home/circleci/params.json
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
             apps/app3/.* app3 true
             .circleci/.* trigger-all true 
           config-path: .circleci/workflows.yml
-      - continuation/continue:
-          configuration_path: ".circleci/workflows.yml"
-          parameters: /home/circleci/params.json
-          pre-steps:
-            - run:
-                command: |
-                  if [ -z "${CIRCLE_PULL_REQUEST##*/}" ]
-                  then
-                    IS_PR=false
-                  else
-                    IS_PR=true
-                  fi
-                  echo '{ "is_pr": '$IS_PR' }' >> /home/circleci/params.json
+
+
 
 
 
