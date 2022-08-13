@@ -7,7 +7,7 @@ workflows:
   run-requierd-builds:
     jobs:
       - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
+          base-revision: main
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
