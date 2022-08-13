@@ -14,9 +14,14 @@ parameters:
     type: boolean
     default: false
 
-test:
-  steps:
-    - run: echo "running"
+commands:
+  common:
+    parameters:
+      custom_parameter:
+        default:  false
+        type: boolean
+    steps:
+      - run: echo "Hello <<parameters.custom_parameter>>"
 
 jobs:
   app1-job:
@@ -30,15 +35,14 @@ jobs:
     steps:
       - when:
           condition: <<parameters.custom_parameter>>
-          jobs:
-            - test
           steps:
-            - run: echo "running"
+          - common:
+              custom_parameter: <<parameters.custom_parameter>>
       - unless:
           condition: <<parameters.custom_parameter>>
           steps:
-            - checkout
-            - run: echo "not running"
+          - common:
+              custom_parameter: <<parameters.custom_parameter>>
 
   app2-job:
     docker:
@@ -84,7 +88,6 @@ workflows:
   app1:
     jobs:
       - app1-job:
-          custom_parameter: <<pipeline.parameters.app1>>
 
   app2:
     jobs:
