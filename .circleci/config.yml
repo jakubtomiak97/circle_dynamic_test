@@ -8,7 +8,6 @@ workflows:
     jobs:
       - path-filtering/filter:
           base-revision: << pipeline.git.branch >>
-          output-path: /home/circleci/params.json
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
