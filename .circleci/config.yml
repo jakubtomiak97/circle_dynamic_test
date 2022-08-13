@@ -2,17 +2,21 @@ version: 2.1
 setup: true
 orbs:
   path-filtering: circleci/path-filtering@0.1.3
+  continuation: circleci/continuation@0.2.0
 workflows:
   run-requierd-builds:
     jobs:
       - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
+          base-revision: main
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
             apps/app3/.* app3 true
             .circleci/.* trigger-all true 
           config-path: .circleci/workflows.yml
+
+
+
 
 
 
