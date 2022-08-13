@@ -28,10 +28,6 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     steps:
       - when:
           condition: <<parameters.custom_parameter>>
