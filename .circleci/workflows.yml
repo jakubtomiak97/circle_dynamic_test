@@ -116,10 +116,6 @@ jobs:
 
 workflows:
 
-  apps-pre-job:
-    jobs:
-      - apps-pre-job
-
   app1:
     when: 
       or:
@@ -128,6 +124,7 @@ workflows:
         - << pipeline.parameters.is_pr >>
         - equal: [ main, << pipeline.git.branch >> ]
     jobs:
+      - apps-pre-job
       - app1-job:
           requires:
             - apps-pre-job
@@ -140,6 +137,7 @@ workflows:
         - equal: [ main, << pipeline.git.branch >> ]
         - << pipeline.parameters.is_pr >>
     jobs:
+      - apps-pre-job
       - app2-job:
           requires:
             - apps-pre-job
@@ -152,6 +150,7 @@ workflows:
         - equal: [ main, << pipeline.git.branch >> ]
         - << pipeline.parameters.is_pr >>
     jobs:
+      - apps-pre-job
       - app3-job:
           requires:
             - apps-pre-job
