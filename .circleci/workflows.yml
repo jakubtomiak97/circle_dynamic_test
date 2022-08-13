@@ -116,6 +116,10 @@ jobs:
 
 workflows:
 
+  pre-workflows-job:
+    jobs:
+      - pre-workflows-job
+
   app1:
     when: 
       or:
