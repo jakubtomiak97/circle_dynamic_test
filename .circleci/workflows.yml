@@ -34,7 +34,10 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: << pipeline.parameters.app1 >>
+          condition: 
+            or:
+              - << pipeline.parameters.app1 >> 
+              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - greeting:
                 to: << pipeline.parameters.app1 >> 
@@ -56,7 +59,10 @@ jobs:
         default: false
     steps:
       - when:
-          condition: << pipeline.parameters.app2 >>
+          condition: 
+            or:
+              - << pipeline.parameters.app2 >> 
+              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - greeting:
                 to: << pipeline.parameters.app2 >> 
@@ -73,7 +79,10 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: << pipeline.parameters.app3 >> 
+          condition: 
+            or:
+              - << pipeline.parameters.app3 >> 
+              - equal: [ main-test, << pipeline.git.branch >> ]
           steps:
             - greeting:
                 to: << pipeline.parameters.app3 >> 
