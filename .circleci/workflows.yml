@@ -41,7 +41,6 @@ jobs:
             or:
               - << pipeline.parameters.app1 >> 
               - << pipeline.parameters.trigger-all >>
-              - << pipeline.parameters.is_pr >>
           steps:
             - run: echo running
 
@@ -49,8 +48,6 @@ jobs:
           condition: 
             or: 
               - << pipeline.parameters.app1 >>
-              - << pipeline.parameters.trigger-all >>
-              - << pipeline.parameters.is_pr >>
           steps:
             - run: echo not running 
 
@@ -69,15 +66,12 @@ jobs:
             or:
               - << pipeline.parameters.app2 >> 
               - << pipeline.parameters.trigger-all >>
-              - << pipeline.parameters.is_pr >>
           steps:
             - run: echo running
       - unless:
           condition:
             or: 
               - << pipeline.parameters.app2 >>
-              - << pipeline.parameters.trigger-all >>
-              - << pipeline.parameters.is_pr >>
           steps:
             - run: echo not running
 
@@ -92,15 +86,12 @@ jobs:
             or:
               - << pipeline.parameters.app3 >> 
               - << pipeline.parameters.trigger-all >>
-              - << pipeline.parameters.is_pr >>
           steps:
             - run: echo running
       - unless:
           condition: 
             or:
               - << pipeline.parameters.app3 >>
-              - << pipeline.parameters.trigger-all >>
-              - << pipeline.parameters.is_pr >>
           steps:
             - run: echo not running
 
@@ -111,7 +102,6 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app1 >>
-        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app1-job
 
@@ -120,7 +110,6 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app2 >>
-        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app2-job
 
@@ -129,6 +118,5 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app3 >>
-        - equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - app3-job
