@@ -37,6 +37,7 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app1 >> 
+              - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo running
 
@@ -61,6 +62,7 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app2 >> 
+              - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo running
       - unless:
@@ -80,6 +82,7 @@ jobs:
           condition: 
             or:
               - << pipeline.parameters.app3 >> 
+              - << pipeline.parameters.trigger-all >>
           steps:
             - run: echo running
       - unless:
