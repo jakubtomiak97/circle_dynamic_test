@@ -25,13 +25,7 @@ commands: # a reusable command with parameters
         default: false
         type: boolean
     steps:
-      - when:
-          condition: << pipeline.parameters.to >>
-          steps: running
-
-      - unless:
-          condition: << pipeline.parameters.to >>
-          steps: not running
+      - run: echo "Hello <<parameters.to>>"
 
 jobs:
   app1-job:
@@ -39,17 +33,38 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - greeting:
-          to: << pipeline.parameters.app1 >> 
+      - when:
+          condition: << pipeline.parameters.app1 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app1 >> 
+
+      - unless:
+          condition: << pipeline.parameters.app1 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app1 >> 
 
 
   app2-job:
     docker:
       - image: cimg/base:stable
     resource_class: small
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
     steps:
-      - greeting:
-          to: << pipeline.parameters.app2>> 
+      - when:
+          condition: << pipeline.parameters.app2 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app2 >> 
+      - unless:
+          condition: << pipeline.parameters.app2 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app2 >> 
 
 
   app3-job:
@@ -57,8 +72,17 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - greeting:
-          to: << pipeline.parameters.app3 >> 
+      - when:
+          condition: << pipeline.parameters.app3 >> 
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app3 >> 
+      - unless:
+          condition: << pipeline.parameters.app3 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app3 >> 
+
 
 workflows:
   app1:
