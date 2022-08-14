@@ -145,16 +145,16 @@ jobs:
 workflows:
 
   app1:
-    when: 
-      or:
-        - << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app1 >>
-    jobs:
-      - app1-job:
-          custom_parameter: true
-    unless:
-      steps:
-        - run: "not running"
+    - when: 
+        or:
+          - << pipeline.parameters.trigger-all >>
+          - << pipeline.parameters.app1 >>
+      jobs:
+        - app1-job:
+            custom_parameter: true
+    - unless:
+        steps:
+          - run: "not running"
 
   app2:
     when: 
