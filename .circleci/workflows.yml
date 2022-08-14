@@ -116,20 +116,20 @@ jobs:
   #           - run: echo "echo not running"
 
 
-    app-test-job:
-      docker:
-        - image: cimg/base:stable
-      resource_class: small
-      steps:
-        - when:
-            condition: << pipeline.parameters.is_pr >>
-            steps:
-              - run: echo "PR"
+  app-test-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - when:
+          condition: << pipeline.parameters.is_pr >>
+          steps:
+            - run: echo "PR"
 
-        - unless:
-            condition: << pipeline.parameters.is_pr >>
-            steps:
-              - run: echo "echo not PR"
+      - unless:
+          condition: << pipeline.parameters.is_pr >>
+          steps:
+            - run: echo "echo not PR"
 
 
 workflows:
