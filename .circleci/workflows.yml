@@ -51,8 +51,8 @@ jobs:
               - and:
                 - or: [ not << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "echo $CIRCLE_APP"
-            - run: echo "echo $TRIGGER_ALL"
+            - run: echo "echo not $CIRCLE_APP"
+            - run: echo "echo not $TRIGGER_ALL"
 
 
   app2-job:
@@ -81,8 +81,8 @@ jobs:
               - and:
                 - or: [ not << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "echo $CIRCLE_APP"
-            - run: echo "echo $TRIGGER_ALL"
+            - run: echo "echo not $CIRCLE_APP"
+            - run: echo "echo not $TRIGGER_ALL"
 
 
   app3-job:
@@ -108,8 +108,8 @@ jobs:
               - and:
                 - or: [ not << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "echo $CIRCLE_APP"
-            - run: echo "echo $TRIGGER_ALL"
+            - run: echo "echo not $CIRCLE_APP"
+            - run: echo "echo not $TRIGGER_ALL"
 
 workflows:
 
