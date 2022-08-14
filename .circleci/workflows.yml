@@ -118,10 +118,6 @@ jobs:
 
 workflows:
 
-  check_if_pr_job:
-    jobs:
-      - check_if_pr_job
-
   app1:
     when: 
       or:
