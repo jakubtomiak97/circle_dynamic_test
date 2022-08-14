@@ -39,7 +39,7 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     environment:
-      IS_PULL: $CIRCLE_PULL_REQUEST
+      IS_PULL: CIRCLE_PULL_REQUEST
     steps:
       - run:
           command: |
