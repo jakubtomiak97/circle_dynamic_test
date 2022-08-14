@@ -32,6 +32,9 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
+    environment:
+      CIRCLE_APP: << pipeline.parameters.app2 >>
+      TRIGGER_ALL: << pipeline.parameters.trigger-all >>
     steps:
       - when:
           condition:
@@ -39,7 +42,8 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "1 of these are true, running"
+            - run: echo "echo $CIRCLE_APP"
+            - run: echo "echo $TRIGGER_ALL"
 
       - unless:
           condition:
@@ -47,7 +51,8 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "1 of these is false, not running "
+            - run: echo "echo $CIRCLE_APP"
+            - run: echo "echo $TRIGGER_ALL"
 
 
   app2-job:
@@ -76,13 +81,17 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "1 of these is false, not running "
+            - run: echo "echo $CIRCLE_APP"
+            - run: echo "echo $TRIGGER_ALL"
 
 
   app3-job:
     docker:
       - image: cimg/base:stable
     resource_class: small
+    environment:
+      CIRCLE_APP: << pipeline.parameters.app3 >>
+      TRIGGER_ALL: << pipeline.parameters.trigger-all >>
     steps:
       - when:
           condition:
@@ -90,7 +99,8 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "1 of these are true, running"
+            - run: echo "echo $CIRCLE_APP"
+            - run: echo "echo $TRIGGER_ALL"
 
       - unless:
           condition:
@@ -98,7 +108,8 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "1 of these is false, not running "
+            - run: echo "echo $CIRCLE_APP"
+            - run: echo "echo $TRIGGER_ALL"
 
 workflows:
 
