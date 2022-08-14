@@ -31,85 +31,78 @@ jobs:
   app1-job:
     docker:
       - image: cimg/base:stable
-    resource_class: small
-    environment:
-      CIRCLE_APP: << pipeline.parameters.app1 >>
-      TRIGGER_ALL: << pipeline.parameters.trigger-all >>
-    steps:
-      - when:
-          condition:
-            or:
-              - and:
-                - or: [ << pipeline.parameters.app1 >> ]
-          steps:
-            - run: echo "echo $CIRCLE_APP"
-            - run: echo "echo $TRIGGER_ALL"
-
-      - unless:
-          condition:
-            or:
-              - and:
-                - or: [ not << pipeline.parameters.app1 >> ]
-          steps:
-            - run: echo "echo not $CIRCLE_APP"
-            - run: echo "echo not $TRIGGER_ALL"
-
-
-  app2-job:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
     parameters:
       custom_parameter:
         type: boolean
         default: false
-    environment:
-      CIRCLE_APP: << pipeline.parameters.app2 >>
-      TRIGGER_ALL: << pipeline.parameters.trigger-all >>
-    steps:
-      - when:
-          condition:
-            or:
-              - and:
-                - or: [ << pipeline.parameters.app2 >> ]
-          steps:
-            - run: echo "echo $CIRCLE_APP"
-            - run: echo "echo $TRIGGER_ALL"
-      - unless:
-          condition:
-            or:
-              - and:
-                - or: [ << pipeline.parameters.app2 >> ]
-          steps:
-            - run: echo "echo not $CIRCLE_APP"
-            - run: echo "echo not $TRIGGER_ALL"
-
-
-  app3-job:
-    docker:
-      - image: cimg/base:stable
     resource_class: small
-    environment:
-      CIRCLE_APP: << pipeline.parameters.app3 >>
-      TRIGGER_ALL: << pipeline.parameters.trigger-all >>
     steps:
       - when:
-          condition:
-            or:
-              - and:
-                - or: [ << pipeline.parameters.app3 >> ]
+          condition: << parameters.custom_parameter >>
           steps:
-            - run: echo "echo $CIRCLE_APP"
-            - run: echo "echo $TRIGGER_ALL"
+            - run: echo "running"
 
       - unless:
-          condition:
-            or:
-              - and:
-                - or: [ << pipeline.parameters.app3 >> ]
+          condition: << parameters.custom_parameter >>
           steps:
-            - run: echo "echo not $CIRCLE_APP"
-            - run: echo "echo not $TRIGGER_ALL"
+            - run: echo "echo not running"
+
+
+  # app2-job:
+  #   docker:
+  #     - image: cimg/base:stable
+  #   resource_class: small
+  #   parameters:
+  #     custom_parameter:
+  #       type: boolean
+  #       default: false
+  #   environment:
+  #     CIRCLE_APP: << pipeline.parameters.app2 >>
+  #     TRIGGER_ALL: << pipeline.parameters.trigger-all >>
+  #   steps:
+  #     - when:
+  #         condition:
+  #           or:
+  #             - and:
+  #               - or: [ << pipeline.parameters.app2 >> ]
+  #         steps:
+  #           - run: echo "echo $CIRCLE_APP"
+  #           - run: echo "echo $TRIGGER_ALL"
+  #     - unless:
+  #         condition:
+  #           or:
+  #             - and:
+  #               - or: [ << pipeline.parameters.app2 >> ]
+  #         steps:
+  #           - run: echo "echo not $CIRCLE_APP"
+  #           - run: echo "echo not $TRIGGER_ALL"
+
+
+  # app3-job:
+  #   docker:
+  #     - image: cimg/base:stable
+  #   resource_class: small
+  #   environment:
+  #     CIRCLE_APP: << pipeline.parameters.app3 >>
+  #     TRIGGER_ALL: << pipeline.parameters.trigger-all >>
+  #   steps:
+  #     - when:
+  #         condition:
+  #           or:
+  #             - and:
+  #               - or: [ << pipeline.parameters.app3 >> ]
+  #         steps:
+  #           - run: echo "echo $CIRCLE_APP"
+  #           - run: echo "echo $TRIGGER_ALL"
+
+  #     - unless:
+  #         condition:
+  #           or:
+  #             - and:
+  #               - or: [ << pipeline.parameters.app3 >> ]
+  #         steps:
+  #           - run: echo "echo not $CIRCLE_APP"
+  #           - run: echo "echo not $TRIGGER_ALL"
 
 workflows:
 
@@ -119,20 +112,21 @@ workflows:
         - << pipeline.parameters.trigger-all >>
         - << pipeline.parameters.app1 >>
     jobs:
-      - app1-job
+      - app1-job:
+          custom_parameter: [ << pipeline.parameters.app1 >>, << pipeline.parameters.trigger-all >> ] 
 
-  app2:
-    when: 
-      or:
-        - << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app2 >>
-    jobs:
-      - app2-job
+  # app2:
+  #   when: 
+  #     or:
+  #       - << pipeline.parameters.trigger-all >>
+  #       - << pipeline.parameters.app2 >>
+  #   jobs:
+  #     - app2-job
 
-  app3:
-    when: 
-      or:
-        - << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app3 >>
-    jobs:
-      - app3-job
+  # app3:
+  #   when: 
+  #     or:
+  #       - << pipeline.parameters.trigger-all >>
+  #       - << pipeline.parameters.app3 >>
+  #   jobs:
+  #     - app3-job
