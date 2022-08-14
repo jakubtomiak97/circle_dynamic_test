@@ -41,7 +41,7 @@ jobs:
     steps:
       - run:
           command: |
-            if [ -z "${CIRCLE_PULL_REQUEST##*/}" ]
+            if [ -z "${CIRCLE_PULL_REQUESTS}" ]
             then
               IS_PR=false
             else
