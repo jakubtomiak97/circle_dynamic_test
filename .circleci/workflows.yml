@@ -69,6 +69,7 @@ jobs:
               - << pipeline.parameters.trigger-all >> 
           steps:
             - run: echo "echo not running"
+            
 
   app2-job:
     docker:
