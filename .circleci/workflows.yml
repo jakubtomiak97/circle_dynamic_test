@@ -42,11 +42,11 @@ jobs:
       - run:
           command: |
             echo $CIRCLE_PULL_REQUEST
-            if [ -z "${CIRCLE_PULL_REQUEST}" ]
+            if [ -v "${CIRCLE_PULL_REQUEST}" ]
             then
-              IS_PR=false
-            else
               IS_PR=true
+            else
+              IS_PR=false
             fi
             echo '{ "is_pr": '$IS_PR' }' >> /tmp/pipeline-parameters.json  
     
