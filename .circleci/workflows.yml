@@ -58,6 +58,9 @@ jobs:
       custom_parameter:
         type: boolean
         default: false
+    environment:
+      CIRCLE_APP: << pipeline.parameters.app2 >>
+      TRIGGER_ALL: << pipeline.parameters.trigger-all >>
     steps:
       - when:
           condition:
@@ -65,8 +68,8 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "echo $pipeline.parameters.app2 pipeline.parameters.trigger-all"
-
+            - run: echo "echo $CIRCLE_APP"
+            - run: echo "echo $TRIGGER_ALL"
       - unless:
           condition:
             or:
