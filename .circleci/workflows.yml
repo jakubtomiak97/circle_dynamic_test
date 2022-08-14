@@ -38,12 +38,12 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: << parameters.custom_parameter >>
+          condition: << pipeline.parameters.app1 >>
           steps:
             - run: echo "running"
 
       - unless:
-          condition: << parameters.custom_parameter >>
+          condition: << pipeline.parameters.app1 >>
           steps:
             - run: echo "echo not running"
 
@@ -57,12 +57,12 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: << parameters.custom_parameter >>
+          condition: << pipeline.parameters.app2 >>
           steps:
             - run: echo "running"
 
       - unless:
-          condition: << parameters.custom_parameter >>
+          condition: << pipeline.parameters.app2 >>
           steps:
             - run: echo "echo not running"
 
@@ -76,12 +76,12 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: << parameters.custom_parameter >>
+          condition: << pipeline.parameters.app3 >>
           steps:
             - run: echo "running"
 
       - unless:
-          condition: << parameters.custom_parameter >>
+          condition: << pipeline.parameters.app3 >>
           steps:
             - run: echo "echo not running"
 
@@ -149,6 +149,8 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - not << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app1 >>
+        - not << pipeline.parameters.app1 >>
     jobs:
       - app1-job
 
@@ -157,6 +159,8 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - not << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app1 >>
+        - not << pipeline.parameters.app1 >>
     jobs:
       - app2-job
 
@@ -165,5 +169,7 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - not << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app1 >>
+        - not << pipeline.parameters.app1 >>
     jobs:
       - app3-job
