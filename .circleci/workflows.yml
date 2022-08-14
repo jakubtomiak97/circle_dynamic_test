@@ -65,7 +65,7 @@ jobs:
               - and:
                 - or: [ << pipeline.parameters.app2 >>, << pipeline.parameters.trigger-all >> ]
           steps:
-            - run: echo "1 of these are true, running"
+            - run: echo "echo $pipeline.parameters.app2 pipeline.parameters.trigger-all"
 
       - unless:
           condition:
