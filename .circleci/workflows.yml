@@ -172,5 +172,5 @@ workflows:
       jobs:
         - check_if_pr_job
         - app-test-job:
-            requieres:
+            requires:
               - check_if_pr_job
