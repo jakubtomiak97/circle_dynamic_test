@@ -153,8 +153,8 @@ workflows:
       - app1-job:
           custom_parameter: true
     unless:
-    jobs:
-      - app1-job
+      steps:
+        - run: "not running"
 
   app2:
     when: 
