@@ -118,7 +118,7 @@ jobs:
 
 workflows:
 
-  check_if_pr:
+  check_if_pr_job:
     jobs:
       - check_if_pr_job
 
@@ -130,7 +130,7 @@ workflows:
         - << pipeline.parameters.app1 >>
         - not << pipeline.parameters.app1 >>
     jobs:
-      - check_if_pr
+      - check_if_pr_job
       - app1-job
 
   app2:
@@ -141,7 +141,7 @@ workflows:
         - << pipeline.parameters.app2 >>
         - not << pipeline.parameters.app2 >>
     jobs:
-      - check_if_pr
+      - check_if_pr_job
       - app2-job
 
   app3:
@@ -152,5 +152,5 @@ workflows:
         - << pipeline.parameters.app3 >>
         - not << pipeline.parameters.app3 >>
     jobs:
-      - check_if_pr
+      - check_if_pr_job
       - app3-job
