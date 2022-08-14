@@ -57,6 +57,7 @@ jobs:
       - when:
           condition: 
             or: 
+              - << pipeline.parameters.app1 >>
               - << pipeline.parameters.is_pr >>
           steps:
             - run: echo "running"
@@ -77,6 +78,7 @@ jobs:
       - when:
           condition: 
             or: 
+              - << pipeline.parameters.app2 >>
               - << pipeline.parameters.is_pr >>
           steps:
             - run: echo "running"
@@ -97,6 +99,8 @@ jobs:
       - when:
           condition: 
             or: 
+              - << pipeline.parameters.app3 >>
+              - << pipeline.parameters.trigger-all >> 
               - << pipeline.parameters.is_pr >>
           steps:
             - run: echo "running"
