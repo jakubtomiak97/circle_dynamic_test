@@ -38,10 +38,12 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
+    environment:
+      IS_PULL: $CIRCLE_PULL_REQUEST
     steps:
       - run:
           command: |
-            if [ -z "${CIRCLE_PULL_REQUESTS}" ]
+            if [ -z "${IS_PULL}" ]
             then
               IS_PR=false
             else
