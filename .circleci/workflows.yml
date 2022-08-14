@@ -152,6 +152,7 @@ workflows:
     jobs:
       - app1-job:
           custom_parameter: true
+      - app1-job
 
   app2:
     when: 
@@ -161,6 +162,7 @@ workflows:
     jobs:
       - app2-job:
           custom_parameter: true
+      - app2-job
 
   app3:
     when: 
@@ -170,3 +172,4 @@ workflows:
     jobs:
       - app3-job:
           custom_parameter: true
+      - app3-job
