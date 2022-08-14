@@ -41,7 +41,6 @@ jobs:
     steps:
       - run:
           command: |
-            source $BASH_ENV
             echo $CIRCLE_PULL_REQUEST
             if [ -z "${CIRCLE_PULL_REQUEST}" ]
             then
