@@ -38,12 +38,18 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: << pipeline.parameters.app1 >>
+          condition: 
+            or: 
+              - << pipeline.parameters.app1 >>
+              - << pipeline.parameters.trigger-all >> 
           steps:
             - run: echo "running"
 
       - unless:
-          condition: << pipeline.parameters.app1 >>
+          condition: 
+            or: 
+              - << pipeline.parameters.app1 >>
+              - << pipeline.parameters.trigger-all >> 
           steps:
             - run: echo "echo not running"
 
@@ -57,12 +63,18 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: << pipeline.parameters.app2 >>
+          condition: 
+            or: 
+              - << pipeline.parameters.app2 >>
+              - << pipeline.parameters.trigger-all >> 
           steps:
             - run: echo "running"
 
       - unless:
-          condition: << pipeline.parameters.app2 >>
+          condition: 
+            or: 
+              - << pipeline.parameters.app2 >>
+              - << pipeline.parameters.trigger-all >> 
           steps:
             - run: echo "echo not running"
 
