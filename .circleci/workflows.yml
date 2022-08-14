@@ -76,12 +76,18 @@ jobs:
     resource_class: small
     steps:
       - when:
-          condition: [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
+          condition: 
+            or: 
+              - << pipeline.parameters.app3 >>
+              -  << pipeline.parameters.trigger-all >> 
           steps:
             - run: echo "running"
 
       - unless:
-          condition: [ << pipeline.parameters.app3 >>, << pipeline.parameters.trigger-all >> ]
+          condition:
+            or: 
+              - << pipeline.parameters.app3 >>
+              -  << pipeline.parameters.trigger-all >> 
           steps:
             - run: echo "echo not running"
 
