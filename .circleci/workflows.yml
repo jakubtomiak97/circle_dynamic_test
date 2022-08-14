@@ -45,10 +45,10 @@ jobs:
             echo $CIRCLE_PULL_REQUEST
             if [ -z $CIRCLE_PULL_REQUEST ]; then
               IS_PR=false
-              echo "pr open"
+              echo "pr closed"
             else
               IS_PR=true
-              echo "pr closed"
+              echo "pr open"
             fi
             echo '{ "is_pr": '$IS_PR' }' >> /tmp/pipeline-parameters.json  
     
@@ -123,14 +123,16 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
+    environment:
+      IS_PULL_REQUEST: pipeline.parameters.is_pr
     steps:
       - when:
-          condition: << pipeline.parameters.is_pr >>
+          condition: << parameters.IS_PULL_REQUEST >>
           steps:
             - run: echo "PR"
 
       - unless:
-          condition: << pipeline.parameters.is_pr >>
+          condition: << parameters.IS_PULL_REQUEST >>
           steps:
             - run: echo "echo not PR"
 
