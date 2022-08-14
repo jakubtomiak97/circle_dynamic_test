@@ -174,8 +174,7 @@ workflows:
         or:
           - << pipeline.parameters.trigger-all >>
       jobs:
-        - check_if_pr_job:
-            IS_PULL_REQUEST: pipeline.parameters.is_pr
+        - check_if_pr_job
         - app-test-job:
             IS_PULL_REQUEST: pipeline.parameters.is_pr
             requires:
