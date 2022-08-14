@@ -113,7 +113,7 @@ workflows:
         - << pipeline.parameters.app1 >>
     jobs:
       - app1-job:
-          custom_parameter: << pipeline.parameters.trigger-all >> 
+          custom_parameter: << pipeline.parameters.app1 >> 
 
   # app2:
   #   when: 
