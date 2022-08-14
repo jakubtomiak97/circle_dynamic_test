@@ -151,7 +151,7 @@ workflows:
         - << pipeline.parameters.app1 >>
     jobs:
       - app1-job:
-          custom_parameter: << pipeline.parameters.app1 >> 
+          custom_parameter: true
 
   app2:
     when: 
@@ -160,7 +160,7 @@ workflows:
         - << pipeline.parameters.app2 >>
     jobs:
       - app2-job:
-          custom_parameter: << pipeline.parameters.app2 >> 
+          custom_parameter: true
 
   app3:
     when: 
@@ -169,4 +169,4 @@ workflows:
         - << pipeline.parameters.app3 >>
     jobs:
       - app3-job:
-          custom_parameter: << pipeline.parameters.app3 >> 
+          custom_parameter: true
