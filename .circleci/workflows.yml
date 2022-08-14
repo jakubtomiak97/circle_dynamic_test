@@ -148,7 +148,7 @@ workflows:
     when: 
       or:
         - << pipeline.parameters.trigger-all >>
-        - << not pipeline.parameters.trigger-all >>
+        - not << pipeline.parameters.trigger-all >>
     jobs:
       - app1-job
 
@@ -156,7 +156,7 @@ workflows:
     when: 
       or:
         - << pipeline.parameters.trigger-all >>
-        - << not pipeline.parameters.trigger-all >>
+        - not << pipeline.parameters.trigger-all >>
     jobs:
       - app2-job
 
@@ -164,6 +164,6 @@ workflows:
     when: 
       or:
         - << pipeline.parameters.trigger-all >>
-        - << not pipeline.parameters.trigger-all >>
+        - not << pipeline.parameters.trigger-all >>
     jobs:
       - app3-job
