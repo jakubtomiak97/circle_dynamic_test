@@ -152,6 +152,8 @@ workflows:
     jobs:
       - app1-job:
           custom_parameter: true
+    unless:
+    jobs:
       - app1-job
 
   app2:
