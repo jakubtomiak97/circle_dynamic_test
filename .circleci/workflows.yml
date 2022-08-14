@@ -43,6 +43,7 @@ jobs:
     steps:
       - run:
           command: |
+            echo $IS_PULL
             if [ -z "${IS_PULL}" ]
             then
               IS_PR=false
