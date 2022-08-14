@@ -33,7 +33,7 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     environment:
-      CIRCLE_APP: << pipeline.parameters.app2 >>
+      CIRCLE_APP: << pipeline.parameters.app1 >>
       TRIGGER_ALL: << pipeline.parameters.trigger-all >>
     steps:
       - when:
