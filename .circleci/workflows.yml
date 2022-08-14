@@ -38,7 +38,7 @@ jobs:
             or: 
               - << pipeline.parameters.app1 >>
               - << pipeline.parameters.trigger-all >> 
-              - equal: [ main-after-test, << pipeline.git.branch >> ] 
+              - equal: [ main, << pipeline.git.branch >> ] 
           steps:
             - run: echo "running"
 
@@ -60,7 +60,7 @@ jobs:
             or: 
               - << pipeline.parameters.app2 >>
               - << pipeline.parameters.trigger-all >> 
-              - equal: [ main-after-test, << pipeline.git.branch >> ]
+              - equal: [ main, << pipeline.git.branch >> ]
           steps:
             - run: echo "running"
 
@@ -82,7 +82,7 @@ jobs:
             or: 
               - << pipeline.parameters.app3 >>
               - << pipeline.parameters.trigger-all >> 
-              - equal: [ main-after-test, << pipeline.git.branch >> ]
+              - equal: [ main, << pipeline.git.branch >> ]
           steps:
             - run: echo "running"
 
