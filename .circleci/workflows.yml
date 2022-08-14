@@ -171,4 +171,6 @@ workflows:
           - << pipeline.parameters.trigger-all >>
       jobs:
         - check_if_pr_job
-        - app-test-job
+        - app-test-job:
+            requieres:
+              - check_if_pr_job
