@@ -145,12 +145,12 @@ jobs:
 workflows:
 
   app1:
-    - when: 
-        or:
-          - << pipeline.parameters.trigger-all >>
-          - << not pipeline.parameters.trigger-all >>
-      jobs:
-        - app1-job
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << not pipeline.parameters.trigger-all >>
+    jobs:
+      - app1-job
 
   app2:
     when: 
