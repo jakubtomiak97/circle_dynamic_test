@@ -47,6 +47,44 @@ jobs:
           steps:
             - run: echo "echo not running"
 
+  app2-job:
+    docker:
+      - image: cimg/base:stable
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
+    resource_class: small
+    steps:
+      - when:
+          condition: << parameters.custom_parameter >>
+          steps:
+            - run: echo "running"
+
+      - unless:
+          condition: << parameters.custom_parameter >>
+          steps:
+            - run: echo "echo not running"
+
+  app3-job:
+    docker:
+      - image: cimg/base:stable
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
+    resource_class: small
+    steps:
+      - when:
+          condition: << parameters.custom_parameter >>
+          steps:
+            - run: echo "running"
+
+      - unless:
+          condition: << parameters.custom_parameter >>
+          steps:
+            - run: echo "echo not running"
+
 
   # app2-job:
   #   docker:
@@ -115,18 +153,20 @@ workflows:
       - app1-job:
           custom_parameter: << pipeline.parameters.app1 >> 
 
-  # app2:
-  #   when: 
-  #     or:
-  #       - << pipeline.parameters.trigger-all >>
-  #       - << pipeline.parameters.app2 >>
-  #   jobs:
-  #     - app2-job
+  app2:
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app2 >>
+    jobs:
+      - app2-job:
+          custom_parameter: << pipeline.parameters.app2 >> 
 
-  # app3:
-  #   when: 
-  #     or:
-  #       - << pipeline.parameters.trigger-all >>
-  #       - << pipeline.parameters.app3 >>
-  #   jobs:
-  #     - app3-job
+  app3:
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app3 >>
+    jobs:
+      - app3-job:
+          custom_parameter: << pipeline.parameters.app3 >> 
