@@ -40,14 +40,14 @@ jobs:
     resource_class: small
     steps:
       - run:
-        command: |
-          if [ -z "${CIRCLE_PULL_REQUEST##*/}" ]
-          then
-            IS_PR=false
-          else
-            IS_PR=true
-          fi
-          echo '{ "is_pr": '$IS_PR' }' >> /tmp/pipeline-parameters.json  
+          command: |
+            if [ -z "${CIRCLE_PULL_REQUEST##*/}" ]
+            then
+              IS_PR=false
+            else
+              IS_PR=true
+            fi
+            echo '{ "is_pr": '$IS_PR' }' >> /tmp/pipeline-parameters.json  
     
   app1-job:
     docker:
