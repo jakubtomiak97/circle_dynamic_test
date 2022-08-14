@@ -31,10 +31,6 @@ jobs:
   app1-job:
     docker:
       - image: cimg/base:stable
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     resource_class: small
     steps:
       - when:
@@ -42,6 +38,7 @@ jobs:
             or: 
               - << pipeline.parameters.app1 >>
               - << pipeline.parameters.trigger-all >> 
+              - equal: [ main-after-test, << pipeline.git.branch >> ] 
           steps:
             - run: echo "running"
 
@@ -56,10 +53,6 @@ jobs:
   app2-job:
     docker:
       - image: cimg/base:stable
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     resource_class: small
     steps:
       - when:
@@ -67,6 +60,7 @@ jobs:
             or: 
               - << pipeline.parameters.app2 >>
               - << pipeline.parameters.trigger-all >> 
+              - equal: [ main-after-test, << pipeline.git.branch >> ]
           steps:
             - run: echo "running"
 
@@ -81,10 +75,6 @@ jobs:
   app3-job:
     docker:
       - image: cimg/base:stable
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
     resource_class: small
     steps:
       - when:
@@ -92,6 +82,7 @@ jobs:
             or: 
               - << pipeline.parameters.app3 >>
               - << pipeline.parameters.trigger-all >> 
+              - equal: [ main-after-test, << pipeline.git.branch >> ]
           steps:
             - run: echo "running"
 
@@ -103,62 +94,6 @@ jobs:
           steps:
             - run: echo "echo not running"
 
-
-  # app2-job:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   resource_class: small
-  #   parameters:
-  #     custom_parameter:
-  #       type: boolean
-  #       default: false
-  #   environment:
-  #     CIRCLE_APP: << pipeline.parameters.app2 >>
-  #     TRIGGER_ALL: << pipeline.parameters.trigger-all >>
-  #   steps:
-  #     - when:
-  #         condition:
-  #           or:
-  #             - and:
-  #               - or: [ << pipeline.parameters.app2 >> ]
-  #         steps:
-  #           - run: echo "echo $CIRCLE_APP"
-  #           - run: echo "echo $TRIGGER_ALL"
-  #     - unless:
-  #         condition:
-  #           or:
-  #             - and:
-  #               - or: [ << pipeline.parameters.app2 >> ]
-  #         steps:
-  #           - run: echo "echo not $CIRCLE_APP"
-  #           - run: echo "echo not $TRIGGER_ALL"
-
-
-  # app3-job:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   resource_class: small
-  #   environment:
-  #     CIRCLE_APP: << pipeline.parameters.app3 >>
-  #     TRIGGER_ALL: << pipeline.parameters.trigger-all >>
-  #   steps:
-  #     - when:
-  #         condition:
-  #           or:
-  #             - and:
-  #               - or: [ << pipeline.parameters.app3 >> ]
-  #         steps:
-  #           - run: echo "echo $CIRCLE_APP"
-  #           - run: echo "echo $TRIGGER_ALL"
-
-  #     - unless:
-  #         condition:
-  #           or:
-  #             - and:
-  #               - or: [ << pipeline.parameters.app3 >> ]
-  #         steps:
-  #           - run: echo "echo not $CIRCLE_APP"
-  #           - run: echo "echo not $TRIGGER_ALL"
 
 workflows:
 
@@ -177,8 +112,8 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - not << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app1 >>
-        - not << pipeline.parameters.app1 >>
+        - << pipeline.parameters.app2 >>
+        - not << pipeline.parameters.app2 >>
     jobs:
       - app2-job
 
@@ -187,7 +122,7 @@ workflows:
       or:
         - << pipeline.parameters.trigger-all >>
         - not << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app1 >>
-        - not << pipeline.parameters.app1 >>
+        - << pipeline.parameters.app3 >>
+        - not << pipeline.parameters.app3 >>
     jobs:
       - app3-job
