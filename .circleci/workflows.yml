@@ -2,7 +2,7 @@ version: 2.1
 #test
 orbs:
   docker: circleci/docker@1.5.0
-
+#hehehe
 parameters:
   app1:
     type: boolean
@@ -14,7 +14,7 @@ parameters:
     type: boolean
     default: false
 
-
+#hehe
 commands:
   azure-cli-install-login:
     steps:
@@ -43,6 +43,9 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo app2 test!"
+      - run:
+          name: "sleep"
+          command: "sleep 60"
   app3-job:
     docker:
       # next-gen ubuntu image with java 11.0.10
