@@ -6,7 +6,7 @@ workflows:
   setup:
     jobs:
       - path-filtering/filter:
-          base-revision: << pipeline.git.base_revision >>
+          base-revision: << pipeline.git.branch >>
           mapping: |
             apps/app1/.* app1 true
             apps/app2/.* app2 true
