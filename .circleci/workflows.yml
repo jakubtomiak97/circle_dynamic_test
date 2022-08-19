@@ -42,6 +42,7 @@ jobs:
           name: "clone another repository"
           command: |
             git clone git@github.com:jakubtomiak97/test_private.git
+            
 
 
 workflows:
