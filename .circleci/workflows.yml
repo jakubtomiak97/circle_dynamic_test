@@ -13,19 +13,21 @@ parameters:
   app3:
     type: boolean
     default: false
+  trigger-all:
+    type: boolean
+    default: false
 
 #hehe
-commands:
-  azure-cli-install-login:
-    steps:
-      - run:
-          name: test
-          command: echo test
+# commands:
+#   azure-cli-install-login:
+#     steps:
+#       - run:
+#           name: test
+#           command: echo test
 
 jobs:
   app1-job:
     docker:
-      # next-gen ubuntu image with java 11.0.10
       - image: cimg/base:stable
     resource_class: small
     steps:
@@ -33,29 +35,13 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo app1 test1!"
-  app2-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "f5:2d:06:a7:70:9e:7f:40:3c:40:13:dc:21:92:9a:38"
       - run:
-          name: "Say hello"
-          command: "echo app2 test!"
-      - run:
-          name: "sleep"
-          command: "sleep 60"
-  app3-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app3 test!"
+          name: "clone another repository"
+          command: |
+            git clone git@github.com:jakubtomiak97/test_private.git
 
 
 workflows:
@@ -63,32 +49,10 @@ workflows:
     when:
       or:
         - << pipeline.parameters.app1 >>
+        - << pipeline.parameters.trigger-all >>
     jobs:
       - app1-job
-      - app1-job:
-          requires:
-            - app1-job
-          filters:
-            branches:
-              only: main
-  app2:
-    when: << pipeline.parameters.app2 >>
-    jobs:
-      - app2-job
-      - app2-job:
-          requires:
-            - app2-job
-          filters:
-            branches:
-              only: main
-  app3:
-    when: << pipeline.parameters.app3 >>
-    jobs:
-      - app3-job
-      - app3-job:
-          requires:
-            - app3-job
-          filters:
-            branches:
-              only: main
+
+
+
 
