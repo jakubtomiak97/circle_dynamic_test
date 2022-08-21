@@ -57,6 +57,7 @@ jobs:
             git add .
             git commit -m "Bump docker tag"          
             git push origin main
+            
 
 workflows:
   app1:
