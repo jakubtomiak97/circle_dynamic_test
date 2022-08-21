@@ -53,6 +53,7 @@ jobs:
           command: |
             git config --local user.email "circle@flyrlabs.com"
             git config --local user.name "Circle CI"
+            git submodule add https://github.com/jakubtomiak97/test_private test_private
             git add .
             git commit -am "Bump docker tag"          
             git push origin main
