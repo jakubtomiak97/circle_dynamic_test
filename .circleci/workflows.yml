@@ -47,7 +47,7 @@ jobs:
           name: "Update image"
           command: |
             cd test_private/apps/helloworld
-            sed -i .bak s/"tag:.*"/tag:\ "'"$CIRCLE_SHA1"'"/ values.yaml
+            sed -i s/"tag:.*"/tag:\ "'"$CIRCLE_SHA1"'"/ values.yaml
       - run:
           name: "push new image back to git"        
           command: |
