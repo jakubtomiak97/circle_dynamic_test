@@ -42,10 +42,11 @@ jobs:
           name: "clone test-private repository"
           command: |
             git clone git@github.com:jakubtomiak97/test_private.git
+            pwd
       - run:
           name: "Update image"
           command: |
-            cd apps/helloworld
+            cd test_private/apps/helloworld
             sed -i .bak s/"tag:.*"/tag:\ "'"$CIRCLE_SHA1"'"/ values.yaml
       - run:
           name: "push new image back to git"        
