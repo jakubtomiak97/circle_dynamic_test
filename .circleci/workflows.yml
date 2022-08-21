@@ -39,11 +39,22 @@ jobs:
           fingerprints:
             - "f5:2d:06:a7:70:9e:7f:40:3c:40:13:dc:21:92:9a:38"
       - run:
-          name: "clone another repository"
+          name: "clone test-private repository"
           command: |
             git clone git@github.com:jakubtomiak97/test_private.git
-            
-
+      - run:
+          name: "Update image"
+          command: |
+            cd apps/helloworld
+            sed -i .bak s/"tag:.*"/tag:\ "'"$CIRCLE_SHA1"'"/ values.yaml
+      - run:
+          name: "push new image back to git"        
+          command: |
+            git config --local user.email "circle@flyrlabs.com"
+            git config --local user.name "Circle CI"
+            git add .
+            git commit -am "Bump docker tag"          
+            git push origin main
 
 workflows:
   app1:
