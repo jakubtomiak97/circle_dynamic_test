@@ -76,7 +76,7 @@ workflows:
       or:
         - << pipeline.parameters.app1 >>
         - << pipeline.parameters.trigger-all >>
-      #  - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
+        - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
     jobs:
       - app1-job:
           filters:
@@ -90,7 +90,7 @@ workflows:
     when:
       or:
         - << pipeline.parameters.app2 >>
-      #  - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.trigger-all >>
         - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
     jobs:
       - app1-job:
@@ -104,7 +104,7 @@ workflows:
     when:
       or:
         - << pipeline.parameters.app3 >>
-     #   - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.trigger-all >>
         - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
     jobs:
       - app3-job:
