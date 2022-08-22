@@ -17,14 +17,7 @@ parameters:
     type: boolean
     default: false
 
-#hehe
-# commands:
-#   azure-cli-install-login:
-#     steps:
-#       - run:
-#           name: test
-#           command: echo test
-
+=
 jobs:
   app1-job:
     docker:
@@ -34,29 +27,48 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo app1 test1!"
-      - add_ssh_keys:
-          fingerprints:
-            - "f5:2d:06:a7:70:9e:7f:40:3c:40:13:dc:21:92:9a:38"
+          command: "echo app1 test!"
+  app2-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
       - run:
-          name: "clone test-private repository"
-          command: |
-            git clone git@github.com:jakubtomiak97/test_private.git
-            pwd
+          name: "Say hello"
+          command: "echo app2 test!"
+
+  app3-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
       - run:
-          name: "Update image"
-          command: |
-            cd test_private/apps/helloworld
-            sed -i s/"tag:.*"/tag:\ "'"$CIRCLE_SHA1"'"/ values.yaml
-      - run:
-          name: "push new image back to git"        
-          command: |
-            cd test_private/apps/helloworld
-            git config --local user.email "circle@flyrlabs.com"
-            git config --local user.name "Circle CI"
-            git add .
-            git commit -m "Bump docker tag"          
-            git push origin main
+          name: "Say hello"
+          command: "echo app3 test!"
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - "f5:2d:06:a7:70:9e:7f:40:3c:40:13:dc:21:92:9a:38"
+      # - run:
+      #     name: "clone test-private repository"
+      #     command: |
+      #       git clone git@github.com:jakubtomiak97/test_private.git
+      #       pwd
+      # - run:
+      #     name: "Update image"
+      #     command: |
+      #       cd test_private/apps/helloworld
+      #       sed -i s/"tag:.*"/tag:\ "'"$CIRCLE_SHA1"'"/ values.yaml
+      # - run:
+      #     name: "push new image back to git"        
+      #     command: |
+      #       cd test_private/apps/helloworld
+      #       git config --local user.email "circle@flyrlabs.com"
+      #       git config --local user.name "Circle CI"
+      #       git add .
+      #       git commit -m "Bump docker tag"          
+      #       git push origin main
             
 
 workflows:
@@ -65,8 +77,45 @@ workflows:
       or:
         - << pipeline.parameters.app1 >>
         - << pipeline.parameters.trigger-all >>
+      #  - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
     jobs:
       - app1-job
+          filters:
+            branches:
+              only:
+                - main
+                - circleci-project-setup-test
+
+
+  app2:
+    when:
+      or:
+        - << pipeline.parameters.app2 >>
+      #  - << pipeline.parameters.trigger-all >>
+        - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
+    jobs:
+      - app1-job
+          filters:
+            branches:
+              only:
+                - main
+
+
+  app3:
+    when:
+      or:
+        - << pipeline.parameters.app3 >>
+     #   - << pipeline.parameters.trigger-all >>
+        - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
+    jobs:
+      - app3-job
+          filters:
+            branches:
+              only:
+                - main
+
+
+
 
 
 
