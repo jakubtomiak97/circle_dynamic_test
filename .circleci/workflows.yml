@@ -98,6 +98,7 @@ workflows:
             branches:
               only:
                 - main
+                - circleci-project-setup-test
 
 
   app3:
