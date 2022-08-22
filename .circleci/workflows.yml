@@ -17,7 +17,6 @@ parameters:
     type: boolean
     default: false
 
-=
 jobs:
   app1-job:
     docker:
