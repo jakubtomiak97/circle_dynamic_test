@@ -79,7 +79,7 @@ workflows:
         - << pipeline.parameters.trigger-all >>
       #  - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
     jobs:
-      - app1-job
+      - app1-job:
           filters:
             branches:
               only:
@@ -94,7 +94,7 @@ workflows:
       #  - << pipeline.parameters.trigger-all >>
         - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
     jobs:
-      - app1-job
+      - app1-job:
           filters:
             branches:
               only:
@@ -108,7 +108,7 @@ workflows:
      #   - << pipeline.parameters.trigger-all >>
         - equal: [ circleci-project-setup-test, << pipeline.git.branch >> ]
     jobs:
-      - app3-job
+      - app3-job:
           filters:
             branches:
               only:
