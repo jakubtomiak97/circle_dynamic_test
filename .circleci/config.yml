@@ -10,7 +10,7 @@ workflows:
     jobs:
       - path/filter:
           config-path: .circleci/workflows.yml
-          base-revision:  << pipeline.git.base-revision >>
+          base-revision:  << pipeline.git.base_revision >>
           mapping: |
             apps/app1/.* build-app1 true
             apps/app2/.* build-app2 true
