@@ -1,8 +1,8 @@
 version: 2.1
-
+#test
 orbs:
   docker: circleci/docker@1.5.0
-
+#hehehe
 parameters:
   app1:
     type: boolean
@@ -16,42 +16,18 @@ parameters:
   trigger-all:
     type: boolean
     default: false
-  is_pr:
-    type: boolean
-    default: false
-
-
-commands: # a reusable command with parameters
-  greeting:
-    parameters:
-      to:
-        default: false
-        type: boolean
-    steps:
-      - run: echo "Hello <<parameters.to>>"
 
 jobs:
+
   app1-job:
     docker:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - when:
-          condition: 
-            or:
-              - << pipeline.parameters.app1 >> 
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: echo running
-
-      - unless:
-          condition: 
-            or: 
-              - << pipeline.parameters.app1 >>
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: echo not running 
-
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app1 test!"
 
   app2-job:
     docker:
@@ -62,20 +38,10 @@ jobs:
         type: boolean
         default: false
     steps:
-      - when:
-          condition: 
-            or:
-              - << pipeline.parameters.app2 >> 
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: echo running
-      - unless:
-          condition:
-            or: 
-              - << pipeline.parameters.app2 >>
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: echo not running
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app2 test!"
 
 
   app3-job:
@@ -83,20 +49,10 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     steps:
-      - when:
-          condition: 
-            or:
-              - << pipeline.parameters.app3 >> 
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: echo running
-      - unless:
-          condition: 
-            or:
-              - << pipeline.parameters.app3 >>
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: echo not running
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo app3 test!"
 
 workflows:
 
@@ -123,3 +79,6 @@ workflows:
         - << pipeline.parameters.app3 >>
     jobs:
       - app3-job
+
+
+
