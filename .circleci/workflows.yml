@@ -1,84 +1,85 @@
 version: 2.1
-#test
-orbs:
-  docker: circleci/docker@1.5.0
-#hehehe
+
 parameters:
-  app1:
+  build-app1:
     type: boolean
     default: false
-  app2:
+  build-app2:
     type: boolean
     default: false
-  app3:
+  build-app3:
     type: boolean
     default: false
   trigger-all:
     type: boolean
     default: false
 
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
+
 jobs:
-
-  app1-job:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
+  tests-done:
+    executor: base
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app1 test!"
-
-  app2-job:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
-    parameters:
-      custom_parameter:
-        type: boolean
-        default: false
+      - run: echo "DONE"
+  build-app1:
+    executor: base
     steps:
+      - unless:
+          condition: 
+            or: 
+              - << pipeline.parameters.build-app1 >>
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: |
+                circleci-agent step halt
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app2 test!"
-
-
-  app3-job:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
+      - run: |
+          echo "test"
+  build-app2:
+    executor: base
     steps:
+      - unless:
+          condition: 
+            or: 
+              - << pipeline.parameters.build-app2 >>
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: |
+                circleci-agent step halt
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app3 test!"
+      - run: |
+          sleep 10s
+
+  build-app3:
+    executor: base
+    steps:
+      - unless:
+          condition: 
+            or: 
+              - << pipeline.parameters.build-app3 >>
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: |
+                circleci-agent step halt
+      - checkout
+      - run: |
+          sleep 15s
+
+    
 
 workflows:
-
-  app1:
-    when: 
-      or:
-        - << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app1 >>
+  just-this-one:
     jobs:
-      - app1-job
-
-  app2:
-    when: 
-      or:
-        - << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app2 >>
-    jobs:
-      - app2-job
-
-  app3:
-    when: 
-      or:
-        - << pipeline.parameters.trigger-all >>
-        - << pipeline.parameters.app3 >>
-    jobs:
-      - app3-job
-
-
-
+      - build-app1
+      - build-app2
+      - build-app3
+      - tests-done:
+          requires:
+            - build-app1
+            - build-app2
+            - build-app3
