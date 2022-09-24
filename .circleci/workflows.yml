@@ -49,6 +49,7 @@ jobs:
           echo "circle odpalany w circlu"
           echo 'export TEST2="test"' >> "$BASH_ENV"
           source "$BASH_ENV"
+          echo $TEST
           echo $TEST2
 
 
