@@ -1,5 +1,3 @@
 #!/bin/bash
 
-export TEST="TEST" >> "$BASH_ENV"
-
-echo $TEST
+echo 'export TEST="test"' >> "$BASH_ENV"
