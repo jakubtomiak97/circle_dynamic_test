@@ -39,7 +39,9 @@ jobs:
                 circleci-agent step halt
       - checkout
       - run: |
-          echo "test"
+          chmod +x .circleci/test.sh
+          bash .circleci/test.sh
+
   build-app2:
     executor: base
     steps:
@@ -53,7 +55,8 @@ jobs:
                 circleci-agent step halt
       - checkout
       - run: |
-          sleep 10s
+          chmod +x .circleci/test.sh
+          bash .circleci/test.sh
 
   build-app3:
     executor: base
@@ -68,7 +71,8 @@ jobs:
                 circleci-agent step halt
       - checkout
       - run: |
-          sleep 15s
+          chmod +x .circleci/test.sh
+          bash .circleci/test.sh
 
     
 
