@@ -26,6 +26,7 @@ jobs:
     executor: base
     steps:
       - run: echo "DONE"
+
   build-app1:
     executor: base
     steps:
@@ -40,48 +41,11 @@ jobs:
       - checkout
       - run: |
           chmod +x .circleci/test.sh
-          bash .circleci/test.sh
+          bash .circleci/test.sh  >> "$BASH_ENV"
 
           echo "circle ci env"
           echo $TEST
 
-  build-app2:
-    executor: base
-    steps:
-      - unless:
-          condition: 
-            or: 
-              - << pipeline.parameters.build-app2 >>
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: |
-                circleci-agent step halt
-      - checkout
-      - run: |
-          chmod +x .circleci/test.sh
-          bash .circleci/test.sh
-
-          echo "circle ci env"
-          echo $TEST
-
-  build-app3:
-    executor: base
-    steps:
-      - unless:
-          condition: 
-            or: 
-              - << pipeline.parameters.build-app3 >>
-              - << pipeline.parameters.trigger-all >>
-          steps:
-            - run: |
-                circleci-agent step halt
-      - checkout
-      - run: |
-          chmod +x .circleci/test.sh
-          bash .circleci/test.sh
-
-          echo "circle ci env"
-          echo $TEST
 
 
     
@@ -90,10 +54,6 @@ workflows:
   just-this-one:
     jobs:
       - build-app1
-      - build-app2
-      - build-app3
       - tests-done:
           requires:
             - build-app1
-            - build-app2
-            - build-app3
