@@ -42,15 +42,9 @@ jobs:
       - run: |
           chmod +x .circleci/test.sh
           bash .circleci/test.sh 
-
-          echo "circle ci env"
-          echo $TEST
-
-          echo "circle odpalany w circlu"
-          echo 'export TEST2="test2"' >> "$BASH_ENV"
           source "$BASH_ENV"
+
           echo $TEST
-          echo $TEST2
 
 
 
