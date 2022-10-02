@@ -19,5 +19,6 @@ pull_request_rules:
       - base=circleci-project-setup
       - "check-success=ci/circleci: tests-done"
     actions:
+      update:
       queue:
         name: default
