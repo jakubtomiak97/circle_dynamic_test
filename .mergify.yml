@@ -2,7 +2,7 @@ pull_request_rules:
   - name: automatic merge for main when CI passes and 1 review
     conditions:
       - "#approved-reviews-by>=1"
-      - base=main
+      - base=circleci-project-setup
       - "check-success=ci/circleci: tests-done"
     actions:
       merge:
