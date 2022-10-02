@@ -1,9 +1,24 @@
+# pull_request_rules:
+#   - name: automatic merge for main when CI passes and 1 review
+#     conditions:
+#       - base=circleci-project-setup
+#       - "check-success=ci/circleci: tests-done"
+#     actions:
+#       update:
+#       merge:
+#         method: merge
+
+
+queue_rules:
+  - name: default
+    conditions: []  # no extra conditions needed to get merged
+
 pull_request_rules:
-  - name: automatic merge for main when CI passes and 1 review
+  - name: merge using the merge queue
     conditions:
       - base=circleci-project-setup
       - "check-success=ci/circleci: tests-done"
     actions:
       update:
-      merge:
-        method: merge
+      queue:
+        name: default
