@@ -3,6 +3,7 @@ pull_request_rules:
     conditions:
       - base=circleci-project-setup
       - "check-success=ci/circleci: tests-done"
+      - "#approved-reviews-by>=1"
     actions:
       merge:
         method: merge
