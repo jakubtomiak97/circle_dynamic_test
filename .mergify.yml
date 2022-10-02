@@ -5,5 +5,6 @@ pull_request_rules:
       - "check-success=ci/circleci: tests-done"
       - "#approved-reviews-by>=1"
     actions:
+      update:
       merge:
         method: merge
