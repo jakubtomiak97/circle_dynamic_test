@@ -1,94 +1,58 @@
 version: 2.1
-#test
-orbs:
-  docker: circleci/docker@1.5.0
-#hehehe
+
 parameters:
-  app1:
+  build-app1:
     type: boolean
     default: false
-  app2:
+  build-app2:
     type: boolean
     default: false
-  app3:
+  build-app3:
+    type: boolean
+    default: false
+  trigger-all:
     type: boolean
     default: false
 
-#hehe
-commands:
-  azure-cli-install-login:
-    steps:
-      - run:
-          name: test
-          command: echo test
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
 
 jobs:
-  app1-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
+  tests-done:
+    executor: base
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app1 test1!"
-  app2-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app2 test!"
-      - run:
-          name: "sleep"
-          command: "sleep 60"
-  app3-job:
-    docker:
-      # next-gen ubuntu image with java 11.0.10
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo app3 test!"
+      - run: echo "DONE"
 
+  build-app1:
+    executor: base
+    steps:
+      - unless:
+          condition: 
+            or: 
+              - << pipeline.parameters.build-app1 >>
+              - << pipeline.parameters.trigger-all >>
+          steps:
+            - run: |
+                circleci-agent step halt
+      - checkout
+      - run: |
+          chmod +x .circleci/test.sh
+          bash .circleci/test.sh 
+
+          echo $TEST
+
+
+
+    
 
 workflows:
-  app1:
-    when:
-      or:
-        - << pipeline.parameters.app1 >>
+  just-this-one:
     jobs:
-      - app1-job
-      - app1-job:
+      - build-app1
+      - tests-done:
           requires:
-            - app1-job
-          filters:
-            branches:
-              only: main
-  app2:
-    when: << pipeline.parameters.app2 >>
-    jobs:
-      - app2-job
-      - app2-job:
-          requires:
-            - app2-job
-          filters:
-            branches:
-              only: main
-  app3:
-    when: << pipeline.parameters.app3 >>
-    jobs:
-      - app3-job
-      - app3-job:
-          requires:
-            - app3-job
-          filters:
-            branches:
-              only: main
-
+            - build-app1

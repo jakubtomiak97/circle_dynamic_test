@@ -1,0 +1,119 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@1.5.0
+
+parameters:
+  app1:
+    type: boolean
+    default: false
+  app2:
+    type: boolean
+    default: false
+  app3:
+    type: boolean
+    default: false
+  trigger-all:
+    type: boolean
+    default: false
+
+
+commands: # a reusable command with parameters
+  greeting:
+    parameters:
+      to:
+        default: false
+        type: boolean
+    steps:
+      - run: echo "Hello <<parameters.to>>"
+
+jobs:
+  app1-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - when:
+          condition: << pipeline.parameters.app1 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app1 >> 
+
+      - unless:
+          condition: << pipeline.parameters.app1 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app1 >> 
+
+
+  app2-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    parameters:
+      custom_parameter:
+        type: boolean
+        default: false
+    steps:
+      - when:
+          condition: << pipeline.parameters.app2 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app2 >> 
+      - unless:
+          condition: << pipeline.parameters.app2 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app2 >> 
+
+
+  app3-job:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - when:
+          condition: << pipeline.parameters.app3 >> 
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app3 >> 
+      - unless:
+          condition: << pipeline.parameters.app3 >>
+          steps:
+            - greeting:
+                to: << pipeline.parameters.app3 >> 
+
+
+workflows:
+  app1:
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app1 >>
+    jobs:
+      - app1-job:
+          filters:
+            branches:
+              only: main-test
+
+  app2:
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app2 >>
+    jobs:
+      - app2-job:
+          filters:
+            branches:
+              only: main-test
+
+  app3:
+    when: 
+      or:
+        - << pipeline.parameters.trigger-all >>
+        - << pipeline.parameters.app3 >>
+    jobs:
+      - app3-job:
+          filters:
+            branches:
+              only: main-test
