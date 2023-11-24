@@ -1,54 +1,54 @@
 version: 2.1
 
-# setup: true
+setup: true
 
-# orbs: 
-#   path: circleci/path-filtering@0.1.3
-
-# workflows:
-#   setup:
-#     jobs:
-#       - path/filter:
-#           config-path: .circleci/workflows.yml
-#           base-revision:  main
-#           mapping: |
-#             apps/app1/.* build-app1 true
-#             apps/app2/.* build-app2 true
-#             apps/app3/.* build-app3 true
-#             .circleci/.* trigger-all true
-
-executors:
-  base:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
-
-
-jobs:
-  build-app1:
-    executor: base
-    steps:
-      - checkout
-      - run: |
-          echo TEST
-    triggers:
-      - type: file-modified
-        path: apps/app1/**
-          
-  build-app2:
-    executor: base
-    steps:
-      - checkout
-      - run: |
-          echo TEST
-    triggers:
-      - type: file-modified
-        path: apps/app2/**
-
+orbs: 
+  path: circleci/path-filtering@0.1.3
 
 workflows:
-  version: 2
-  build-and-deploy:
+  setup:
     jobs:
-      - build-app1
-      - build-app2
+      - path/filter:
+          config-path: .circleci/workflows.yml
+          base-revision:  main
+          mapping: |
+            apps/app1/.* build-app1 true
+            apps/app2/.* build-app2 true
+            apps/app3/.* build-app3 true
+            .circleci/.* trigger-all true
+
+# executors:
+#   base:
+#     docker:
+#       - image: cimg/base:stable
+#     resource_class: small
+
+
+# jobs:
+#   build-app1:
+#     executor: base
+#     steps:
+#       - checkout
+#       - run: |
+#           echo TEST
+#     triggers:
+#       - type: file-modified
+#         path: apps/app1/**
+          
+#   build-app2:
+#     executor: base
+#     steps:
+#       - checkout
+#       - run: |
+#           echo TEST
+#     triggers:
+#       - type: file-modified
+#         path: apps/app2/**
+
+
+# workflows:
+#   version: 2
+#   build-and-deploy:
+#     jobs:
+#       - build-app1
+#       - build-app2
