@@ -5,6 +5,12 @@ parameters:
     type: boolean
     default: false
 
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
 jobs:
 
   build-app1:
