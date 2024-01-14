@@ -28,6 +28,10 @@ workflows:
     when: << pipeline.parameters.app1 >>
     jobs:
       - build-app1
-      - tests-done1:
+
+  tests-done:
+    when: << pipeline.parameters.app1 >>
+    jobs:
+      - tests-done:
           requires:
-            - build-app1
+            - app1
