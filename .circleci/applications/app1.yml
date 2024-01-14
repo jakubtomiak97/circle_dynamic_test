@@ -13,6 +13,11 @@ executors:
 
 jobs:
 
+  tests-done:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
   build-app1:
     executor: base
     steps:
