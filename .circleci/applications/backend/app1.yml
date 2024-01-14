@@ -25,8 +25,24 @@ jobs:
 
   build-app1:
     executor: base
+    parameters:
+       run-job:
+        type: string
+        default: ""
     steps:
-      - run: echo "DONE"
+      - unless:
+          condition:
+            - << parameters.run-job >>
+        steps:
+          - run:
+              name: Skip Build
+              command: echo "skipping build as not needed"
+      - when:
+          condition:
+            - << parameters.run-job >>
+          steps:
+          - run: echo "DONE"
+
 
 workflows:
   version: 2
