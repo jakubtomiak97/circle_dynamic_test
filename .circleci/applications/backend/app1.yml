@@ -3,13 +3,18 @@ version: 2.1
 parameters:
   app1:
     type: boolean
-    default: false
+    default: ""
 
 executors:
   base:
     docker:
       - image: cimg/base:stable
     resource_class: small
+
+filter: &filter >-
+  <<
+  pipeline.parameters.app1
+  >>
 
 jobs:
 
@@ -24,14 +29,12 @@ jobs:
       - run: echo "DONE"
 
 workflows:
-  app1:
-    when: << pipeline.parameters.app1 >>
-    jobs:
-      - build-app1
+  version: 2
 
-  tests-done:
-    when: << pipeline.parameters.app1 >>
+  acp:
     jobs:
-      - tests-done:
+      - build-app1: *filter
+
+      - tests-done: *filter
           requires:
-            - app1
+            - build-app1
