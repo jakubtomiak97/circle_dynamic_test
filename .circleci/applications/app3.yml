@@ -1,0 +1,22 @@
+version: 2.1
+
+parameters:
+  app3:
+    type: boolean
+    default: false
+
+jobs:
+
+  build-app3:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+workflows:
+  app3:
+    when: << pipeline.parameters.app3 >>
+    jobs:
+      - build-app3
+      - tests-done:
+          requires:
+            - build-app3

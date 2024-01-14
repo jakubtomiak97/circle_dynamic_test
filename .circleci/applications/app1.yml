@@ -1,0 +1,22 @@
+version: 2.1
+
+parameters:
+  app1:
+    type: boolean
+    default: false
+
+jobs:
+
+  build-app1:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+workflows:
+  app1:
+    when: << pipeline.parameters.app1 >>
+    jobs:
+      - build-app1
+      - tests-done:
+          requires:
+            - build-app1

@@ -1,0 +1,14 @@
+version: 2.1
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
+
+jobs:
+  tests-done:
+    executor: base
+    steps:
+      - run: echo "DONE"
