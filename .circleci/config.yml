@@ -12,6 +12,10 @@ workflows:
           #config-path: .circleci/common.yml
           base-revision:  main
           mapping: |
-            apps/app1/.* app1 true .circleci/applications/app1.yml
-            apps/app2/.* app2 true .circleci/applications/app2.yml
-            apps/app3/.* app3 true .circleci/applications/app3.yml
+            apps/app1/.* app1 true .circleci/applications/backend/app1.yml
+            apps/app2/.* app2 true .circleci/applications/backend/app2.yml
+            apps/app3/.* app3 true .circleci/applications/backend/app3.yml
+
+            apps/frontend/app1/.* app1-fe true .circleci/applications/frontend/app1.yml
+            apps/frontend/app2/.* app2-fe true .circleci/applications/frontend/app2.yml
+            apps/frontend/app3/.* app3-fe true .circleci/applications/frontend/app3.yml

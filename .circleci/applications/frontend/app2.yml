@@ -1,0 +1,33 @@
+version: 2.1
+
+parameters:
+  app2-fe:
+    type: boolean
+    default: false
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
+jobs:
+
+  tests-done:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+  build-app2-fe:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+workflows:
+  app2-fe:
+    when: << pipeline.parameters.app2-fe >>
+    jobs:
+      - build-app2-fe
+      - tests-done:
+          requires:
+            - build-app2-fe

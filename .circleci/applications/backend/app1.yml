@@ -1,0 +1,33 @@
+version: 2.1
+
+parameters:
+  app1:
+    type: boolean
+    default: false
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
+jobs:
+
+  tests-done:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+  build-app1:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+workflows:
+  app1:
+    when: << pipeline.parameters.app1 >>
+    jobs:
+      - build-app1
+      - tests-done:
+          requires:
+            - build-app1

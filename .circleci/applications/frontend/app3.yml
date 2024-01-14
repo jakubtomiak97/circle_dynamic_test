@@ -1,0 +1,33 @@
+version: 2.1
+
+parameters:
+  app3-fe:
+    type: boolean
+    default: false
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+
+jobs:
+
+  tests-done:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+  build-app3-fe:
+    executor: base
+    steps:
+      - run: echo "DONE"
+
+workflows:
+  app3-fe:
+    when: << pipeline.parameters.app3-fe >>
+    jobs:
+      - build-app3-fe
+      - tests-done:
+          requires:
+            - build-app3-fe
