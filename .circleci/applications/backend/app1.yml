@@ -13,7 +13,7 @@ executors:
 
 jobs:
 
-  tests-done1:
+  tests-done:
     executor: base
     steps:
       - run: echo "DONE"
