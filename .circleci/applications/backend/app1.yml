@@ -33,8 +33,9 @@ workflows:
 
   acp:
     jobs:
-      - build-app1: *filter
-
-      - tests-done: *filter
+      - build-app1: 
+          run-job: *filter
+      - tests-done: 
+          run-job: *filter
           requires:
             - build-app1

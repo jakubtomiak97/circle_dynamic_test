@@ -9,7 +9,6 @@ workflows:
   setup:
     jobs:
       - path/filter:
-          #config-path: .circleci/common.yml
           base-revision:  main
           mapping: |
             apps/app1/.* app1 true .circleci/applications/backend/app1.yml
