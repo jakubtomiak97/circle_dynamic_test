@@ -25,7 +25,7 @@ commands: # a reusable command with parameters
         default: false
         type: boolean
     steps:
-      - run: echo "Hello <<parameters.to>>"
+      - run: echo "Helllo <<parameters.to>>"
 
 jobs:
   app1-job:
